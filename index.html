@@ -1259,6 +1259,56 @@
     pointer-events: none;
     z-index: 10;
 }
+        /* ================= OPTION 1: LASER BORDER RACE ================= */
+.combat-card-main {
+    position: relative !important;
+    border: none !important;
+    background: transparent !important;
+    overflow: hidden !important;
+    isolation: isolate;
+    border-radius: 26px !important;
+    box-shadow: 0 10px 35px rgba(0, 243, 255, 0.15) !important;
+}
+
+/* 1. The Spinning Laser Comet */
+.combat-card-main::before {
+    content: '';
+    position: absolute;
+    top: -80%;
+    left: -80%;
+    width: 260%;
+    height: 260%;
+    background: conic-gradient(
+        transparent 0deg,
+        transparent 220deg,
+        rgba(0, 243, 255, 0.15) 260deg,
+        #00f3ff 330deg,
+        #ffffff 360deg
+    );
+    animation: laserBorderSpin 3.5s linear infinite;
+    z-index: 0;
+}
+
+/* 2. Inner Dark Card Base (leaves a 2px racing border) */
+.combat-card-main::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #050a18;
+    border-radius: 24px;
+    z-index: 1;
+}
+
+/* Keep all contents above the laser and dark base */
+.combat-card-main > * {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes laserBorderSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
     </style>
 </head>
 <body>
@@ -2146,6 +2196,81 @@
     }
     animateFire();
 })();
+        /* ================= OPTION 3: DYNAMIC ROLLING COUNTER ================= */
+function runCombatCounterAnimation() {
+    const duration = 1800; // Animation speed: 1.8 seconds
+    const startTime = performance.now();
+
+    // Target metrics
+    const targets = {
+        winRate: 82.4,
+        matches: 450,
+        trophies: 18,
+        wins: 371,
+        draws: 34,
+        losses: 45
+    };
+
+    // Elements
+    const elWinRate = document.getElementById('stat-winrate');
+    const elMatches = document.getElementById('stat-matches');
+    const elTrophies = document.getElementById('stat-trophies');
+    const elWins = document.getElementById('stat-wins');
+    const elDraws = document.getElementById('stat-draws');
+    const elLosses = document.getElementById('stat-losses');
+    const elRank = document.getElementById('stat-ranktier');
+
+    // Scramble effect characters for "TOP 10"
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ#';
+    const finalRank = 'TOP 10';
+
+    function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Smooth cubic ease-out curve
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+
+        // Rolling numbers
+        if (elWinRate) elWinRate.innerText = (targets.winRate * easeOut).toFixed(1) + '%';
+        if (elMatches) elMatches.innerText = Math.floor(targets.matches * easeOut);
+        if (elTrophies) elTrophies.innerText = Math.floor(targets.trophies * easeOut);
+        if (elWins) elWins.innerText = Math.floor(targets.wins * easeOut);
+        if (elDraws) elDraws.innerText = Math.floor(targets.draws * easeOut);
+        if (elLosses) elLosses.innerText = Math.floor(targets.losses * easeOut);
+
+        // Rank Tier Digital Scramble
+        if (elRank) {
+            if (progress < 0.8) {
+                let scrambled = '';
+                for (let i = 0; i < finalRank.length; i++) {
+                    scrambled += (finalRank[i] === ' ') ? ' ' : chars[Math.floor(Math.random() * chars.length)];
+                }
+                elRank.innerText = scrambled;
+            } else {
+                elRank.innerText = finalRank;
+            }
+        }
+
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            // Lock to final clean values
+            if (elWinRate) elWinRate.innerText = targets.winRate + '%';
+            if (elMatches) elMatches.innerText = targets.matches;
+            if (elTrophies) elTrophies.innerText = targets.trophies;
+            if (elWins) elWins.innerText = targets.wins;
+            if (elDraws) elDraws.innerText = targets.draws;
+            if (elLosses) elLosses.innerText = targets.losses;
+            if (elRank) elRank.innerText = finalRank;
+        }
+    }
+
+    requestAnimationFrame(updateCounter);
+}
+
+// Trigger as soon as the page loads
+
 
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
@@ -2166,7 +2291,9 @@
             e.target.reset();
         }
 
-        window.addEventListener('DOMContentLoaded', initClanPage);
+        window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(runCombatCounterAnimation, 250);
+});
     </script>
 </body>
 </html>
