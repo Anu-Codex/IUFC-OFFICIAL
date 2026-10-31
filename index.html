@@ -824,6 +824,279 @@
             cursor: pointer;
             margin-top: 4px;
         }
+        /* ================= FEATURE 1: 2x3 ADMIN ROSTER ================= */
+.roster-section {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-neon);
+    border-radius: 26px;
+    padding: 20px 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.section-title-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+.section-title-wrap h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.88rem;
+    color: #ffffff;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.roster-grid-2x3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.admin-card {
+    background: #060e22;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 16px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+.admin-card:hover {
+    border-color: var(--accent-cyan);
+    transform: translateY(-2px);
+}
+.admin-img-wrap {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: #020612;
+    border: 1.5px solid rgba(0, 243, 255, 0.35);
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+.admin-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.admin-role-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.role-owner {
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--accent-gold);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+.role-admin {
+    background: rgba(0, 243, 255, 0.15);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 243, 255, 0.4);
+}
+.admin-ign {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.admin-realname {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    font-weight: 700;
+    margin-top: 2px;
+}
+.btn-see-more {
+    width: 100%;
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid rgba(0, 243, 255, 0.35);
+    color: var(--accent-cyan);
+    border-radius: 14px;
+    padding: 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.btn-see-more:hover {
+    background: var(--accent-cyan);
+    color: #040711;
+}
+
+/* ================= FEATURE 2: TIMELINE ================= */
+.timeline-section {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 243, 255, 0.25);
+    border-radius: 26px;
+    padding: 20px 16px;
+}
+.timeline-flow {
+    position: relative;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 14px;
+}
+.timeline-flow::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--accent-blue) 70%, transparent 100%);
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+.timeline-item { position: relative; }
+.timeline-node {
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #020612;
+    border: 2px solid var(--accent-cyan);
+    box-shadow: 0 0 8px var(--accent-cyan);
+}
+.timeline-content {
+    background: #060e22;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+.timeline-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    letter-spacing: 1px;
+}
+.timeline-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 2px 0;
+}
+.timeline-desc {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    line-height: 1.35;
+}
+
+/* ================= FEATURE 4: OFFICIAL KITS ================= */
+.armory-section {
+    background: linear-gradient(180deg, #071026 0%, #040918 100%);
+    border: 1.5px solid var(--border-neon);
+    border-radius: 26px;
+    padding: 20px 16px;
+}
+.kit-display-box {
+    background: rgba(2, 6, 18, 0.7);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 20px;
+    padding: 16px 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 14px 0;
+}
+.kit-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.jersey-svg {
+    width: 78px;
+    height: 78px;
+    filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.4));
+    transition: transform 0.2s ease;
+}
+.jersey-svg:hover { transform: scale(1.06); }
+.kit-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+.kit-perks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.kit-perk-item {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.kit-perk-item i { color: var(--accent-cyan); }
+
+/* ================= FEATURE 7: SOCIALS HUB ================= */
+.socials-section {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 243, 255, 0.25);
+    border-radius: 26px;
+    padding: 20px 16px;
+}
+.socials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+}
+.social-card {
+    background: #060e22;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 12px 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+.social-card:hover { transform: translateY(-2px); }
+.social-icon-box {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+.card-yt .social-icon-box { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.card-ig .social-icon-box { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+.card-dc .social-icon-box { background: rgba(88, 101, 242, 0.15); color: #818cf8; }
+.card-wa .social-icon-box { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.social-text h5 { font-family: 'Orbitron'; font-size: 0.74rem; color: #fff; margin-bottom: 2px; }
+.social-text span { font-size: 0.65rem; color: var(--text-dim); font-family: 'Rajdhani'; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -1038,6 +1311,208 @@
                 </a>
             </div>
         </section>
+        <!-- ================= FEATURE 1: 2x3 ADMIN ROSTER ================= -->
+        <section class="roster-section">
+            <div class="section-title-wrap">
+                <h3><i class="fa-solid fa-shield-halved" style="color:var(--accent-cyan);"></i> CLAN COMMAND</h3>
+                <span style="font-size:0.65rem; color:var(--accent-cyan); background:rgba(0,243,255,0.1); padding:2px 7px; border-radius:6px; font-weight:700;">6 LEADERS</span>
+            </div>
+
+            <!-- Exactly 2 Columns x 3 Rows (6 Admins) -->
+            <div class="roster-grid-2x3">
+                <!-- 1. Owner -->
+                <div class="admin-card">
+                    <div class="admin-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=120" class="admin-img" alt="Leader">
+                    </div>
+                    <span class="admin-role-badge role-owner">OWNER</span>
+                    <span class="admin-ign">IUFC_Ghost</span>
+                    <span class="admin-realname">Alex Hunter</span>
+                </div>
+
+                <!-- 2. Co-Owner -->
+                <div class="admin-card">
+                    <div class="admin-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120" class="admin-img" alt="Leader">
+                    </div>
+                    <span class="admin-role-badge role-owner">CO-OWNER</span>
+                    <span class="admin-ign">IUFC_Viper</span>
+                    <span class="admin-realname">Liam Vance</span>
+                </div>
+
+                <!-- 3. Head Admin -->
+                <div class="admin-card">
+                    <div class="admin-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=120" class="admin-img" alt="Leader">
+                    </div>
+                    <span class="admin-role-badge role-admin">HEAD ADMIN</span>
+                    <span class="admin-ign">IUFC_Shadow</span>
+                    <span class="admin-realname">Marcus Ray</span>
+                </div>
+
+                <!-- 4. War Captain -->
+                <div class="admin-card">
+                    <div class="admin-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120" class="admin-img" alt="Leader">
+                    </div>
+                    <span class="admin-role-badge role-admin">WAR CAPTAIN</span>
+                    <span class="admin-ign">IUFC_Kaiser</span>
+                    <span class="admin-realname">Ethan Cross</span>
+                </div>
+
+                <!-- 5. Recruitment Admin -->
+                <div class="admin-card">
+                    <div class="admin-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" class="admin-img" alt="Leader">
+                    </div>
+                    <span class="admin-role-badge role-admin">RECRUIT ADMIN</span>
+                    <span class="admin-ign">IUFC_Apex</span>
+                    <span class="admin-realname">Noah Walker</span>
+                </div>
+
+                <!-- 6. Clan Mod -->
+                <div class="admin-card">
+                    <div class="admin-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120" class="admin-img" alt="Leader">
+                    </div>
+                    <span class="admin-role-badge role-admin">OPERATIONS</span>
+                    <span class="admin-ign">IUFC_Phantom</span>
+                    <span class="admin-realname">David Sterling</span>
+                </div>
+            </div>
+
+            <!-- Opens full administration window -->
+            <button type="button" class="btn-see-more" onclick="openModal('allAdminsModal')">
+                <i class="fa-solid fa-users-gear"></i> SEE ALL ADMINS & MANAGERS
+            </button>
+        </section>
+
+        <!-- ================= FEATURE 2: ROAD OF GLORY TIMELINE ================= -->
+        <section class="timeline-section">
+            <div class="section-title-wrap">
+                <h3><i class="fa-solid fa-medal" style="color:var(--accent-gold);"></i> ROAD OF GLORY</h3>
+                <span style="font-size:0.65rem; color:var(--accent-cyan); background:rgba(0,243,255,0.1); padding:2px 7px; border-radius:6px; font-weight:700;">MILESTONES</span>
+            </div>
+
+            <div class="timeline-flow">
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-tag">2026 ORIGIN</div>
+                        <div class="timeline-title">Invisible United FC Founded</div>
+                        <div class="timeline-desc">Assembled an elite squad of Division 1 competitors for competitive mobile eFootball.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-tag">CHAMPIONS • SEASON 4</div>
+                        <div class="timeline-title">🏆 Asian Clan Masters S4</div>
+                        <div class="timeline-desc">Swept the Grand Finals 4-1 with an undefeated 9-match war record.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-tag">RUNNER UP • 2026</div>
+                        <div class="timeline-title">🥈 Global 2v2 Duo Cup</div>
+                        <div class="timeline-desc">Secured 2nd place out of 64 registered international mobile eSports clans.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-tag" style="color:var(--accent-gold);">NEXT STOP</div>
+                        <div class="timeline-title">🔥 Obsidian Pro League</div>
+                        <div class="timeline-desc">Preparations underway for the upcoming 10v10 national clan championship.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FEATURE 4: OFFICIAL CLAN KITS ================= -->
+        <section class="armory-section">
+            <div class="section-title-wrap">
+                <h3><i class="fa-solid fa-shirt" style="color:var(--accent-cyan);"></i> THE ARMORY • CLAN KITS</h3>
+                <span style="font-size:0.65rem; color:var(--accent-cyan); background:rgba(0,243,255,0.1); padding:2px 7px; border-radius:6px; font-weight:700;">OFFICIAL</span>
+            </div>
+
+            <div class="kit-display-box">
+                <!-- Home Kit -->
+                <div class="kit-card">
+                    <svg class="jersey-svg" viewBox="0 0 100 100">
+                        <path d="M30 18 L42 28 L58 28 L70 18 L88 32 L76 46 L74 88 L26 88 L24 46 L12 32 Z" fill="#050e24" stroke="#00f3ff" stroke-width="2.5"/>
+                        <path d="M42 28 Q50 36 58 28" fill="none" stroke="#00f3ff" stroke-width="2.5"/>
+                        <path d="M48 40 L52 40 L52 82 L48 82 Z" fill="#00f3ff"/>
+                        <circle cx="50" cy="54" r="6" fill="#00f3ff"/>
+                    </svg>
+                    <span class="kit-badge" style="color:#00f3ff; background:rgba(0,243,255,0.15); border:1px solid rgba(0,243,255,0.4);">HOME KIT</span>
+                    <span style="font-size:0.65rem; color:var(--text-dim);">Cyber Cyan</span>
+                </div>
+
+                <!-- Away Kit -->
+                <div class="kit-card">
+                    <svg class="jersey-svg" viewBox="0 0 100 100">
+                        <path d="M30 18 L42 28 L58 28 L70 18 L88 32 L76 46 L74 88 L26 88 L24 46 L12 32 Z" fill="#0a1226" stroke="#ffffff" stroke-width="2.5"/>
+                        <path d="M42 28 Q50 36 58 28" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+                        <path d="M48 40 L52 40 L52 82 L48 82 Z" fill="#fbbf24"/>
+                        <circle cx="50" cy="54" r="6" fill="#ffffff"/>
+                    </svg>
+                    <span class="kit-badge" style="color:#ffffff; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3);">AWAY KIT</span>
+                    <span style="font-size:0.65rem; color:var(--text-dim);">Obsidian Gold</span>
+                </div>
+            </div>
+
+            <div class="kit-perks-list">
+                <div class="kit-perk-item"><i class="fa-solid fa-check"></i> Custom gamertag & squad number printed on official player cards.</div>
+                <div class="kit-perk-item"><i class="fa-solid fa-check"></i> Worn by active roster ballers across all clan war livestreams.</div>
+            </div>
+        </section>
+
+        <!-- ================= FEATURE 7: OFFICIAL SOCIALS HUB ================= -->
+        <section class="socials-section">
+            <div class="section-title-wrap">
+                <h3><i class="fa-solid fa-hashtag" style="color:var(--accent-cyan);"></i> OFFICIAL CHANNELS</h3>
+                <span style="font-size:0.65rem; color:var(--accent-cyan); background:rgba(0,243,255,0.1); padding:2px 7px; border-radius:6px; font-weight:700;">CONNECT</span>
+            </div>
+
+            <div class="socials-grid">
+                <a href="https://youtube.com" target="_blank" class="social-card card-yt">
+                    <div class="social-icon-box"><i class="fa-brands fa-youtube"></i></div>
+                    <div class="social-text">
+                        <h5>YOUTUBE</h5>
+                        <span>War Highlights</span>
+                    </div>
+                </a>
+
+                <a href="https://instagram.com" target="_blank" class="social-card card-ig">
+                    <div class="social-icon-box"><i class="fa-brands fa-instagram"></i></div>
+                    <div class="social-text">
+                        <h5>INSTAGRAM</h5>
+                        <span>Match Posters</span>
+                    </div>
+                </a>
+
+                <a href="https://discord.gg" target="_blank" class="social-card card-dc">
+                    <div class="social-icon-box"><i class="fa-brands fa-discord"></i></div>
+                    <div class="social-text">
+                        <h5>DISCORD</h5>
+                        <span>Scrim Voice & Chat</span>
+                    </div>
+                </a>
+
+                <a href="https://whatsapp.com" target="_blank" class="social-card card-wa">
+                    <div class="social-icon-box"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="social-text">
+                        <h5>WHATSAPP</h5>
+                        <span>Community Lounge</span>
+                    </div>
+                </a>
+            </div>
+        </section>
 
     </main>
 
@@ -1082,6 +1557,87 @@
             </div>
             <div id="warLogsList" style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto;">
                 <!-- Populated via JS -->
+            </div>
+        </div>
+    </div>
+    <!-- ================= MODAL: FULL ADMIN DIRECTORY ================= -->
+    <div id="allAdminsModal" class="modal-overlay" onclick="closeModal('allAdminsModal', event)">
+        <div class="modal-box" style="max-width: 440px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-family:'Orbitron'; font-size:0.95rem; color:#fff;">IUFC ADMINISTRATION</h3>
+                    <span style="font-size:0.68rem; color:var(--accent-cyan); font-weight:800;">OFFICIAL STAFF DIRECTORY</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('allAdminsModal')">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="max-height: 360px; overflow-y: auto; display:flex; flex-direction:column; gap:8px;">
+                <!-- Full admin list entries -->
+                <div style="background:#040918; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=100" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.8rem; font-weight:800; color:#fff;">IUFC_Ghost</div>
+                            <div style="font-size:0.68rem; color:var(--text-dim);">Alex Hunter • Founder</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.6rem; color:#fbbf24; background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.3); padding:3px 8px; border-radius:6px; font-weight:800; font-family:'Orbitron';">OWNER</span>
+                </div>
+
+                <div style="background:#040918; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.8rem; font-weight:800; color:#fff;">IUFC_Viper</div>
+                            <div style="font-size:0.68rem; color:var(--text-dim);">Liam Vance • Clan Management</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.6rem; color:#fbbf24; background:rgba(251,191,36,0.15); border:1px solid rgba(251,191,36,0.3); padding:3px 8px; border-radius:6px; font-weight:800; font-family:'Orbitron';">CO-OWNER</span>
+                </div>
+
+                <div style="background:#040918; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.8rem; font-weight:800; color:#fff;">IUFC_Shadow</div>
+                            <div style="font-size:0.68rem; color:var(--text-dim);">Marcus Ray • Lead Admin</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.6rem; color:#00f3ff; background:rgba(0,243,255,0.15); border:1px solid rgba(0,243,255,0.3); padding:3px 8px; border-radius:6px; font-weight:800; font-family:'Orbitron';">ADMIN</span>
+                </div>
+
+                <div style="background:#040918; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.8rem; font-weight:800; color:#fff;">IUFC_Kaiser</div>
+                            <div style="font-size:0.68rem; color:var(--text-dim);">Ethan Cross • Roster Captain</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.6rem; color:#10b981; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); padding:3px 8px; border-radius:6px; font-weight:800; font-family:'Orbitron';">CAPTAIN</span>
+                </div>
+
+                <div style="background:#040918; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.8rem; font-weight:800; color:#fff;">IUFC_Apex</div>
+                            <div style="font-size:0.68rem; color:var(--text-dim);">Noah Walker • Recruitment</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.6rem; color:#00f3ff; background:rgba(0,243,255,0.15); border:1px solid rgba(0,243,255,0.3); padding:3px 8px; border-radius:6px; font-weight:800; font-family:'Orbitron';">ADMIN</span>
+                </div>
+
+                <div style="background:#040918; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.8rem; font-weight:800; color:#fff;">IUFC_Phantom</div>
+                            <div style="font-size:0.68rem; color:var(--text-dim);">David Sterling • Tournaments</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.6rem; color:#94a3b8; background:rgba(148,163,184,0.15); border:1px solid rgba(148,163,184,0.3); padding:3px 8px; border-radius:6px; font-weight:800; font-family:'Orbitron';">MODERATOR</span>
+                </div>
             </div>
         </div>
     </div>
