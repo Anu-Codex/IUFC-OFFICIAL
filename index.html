@@ -1097,6 +1097,107 @@
 .card-wa .social-icon-box { background: rgba(16, 185, 129, 0.15); color: #34d399; }
 .social-text h5 { font-family: 'Orbitron'; font-size: 0.74rem; color: #fff; margin-bottom: 2px; }
 .social-text span { font-size: 0.65rem; color: var(--text-dim); font-family: 'Rajdhani'; font-weight: 700; }
+        /* ================= FEATURE 4: TROPHY CABINET ================= */
+.trophy-section {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-neon);
+    border-radius: 26px;
+    padding: 20px 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.trophy-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.trophy-card {
+    background: #060e22;
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 18px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.trophy-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
+}
+
+.trophy-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, rgba(6, 14, 34, 0.8) 70%);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+}
+
+.trophy-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 3px;
+}
+
+.trophy-meta {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.trophy-tap-hint {
+    margin-top: 8px;
+    font-size: 0.58rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    color: var(--accent-gold);
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 2px 7px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+/* Modal inside details */
+.trophy-score-box {
+    background: #030712;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 12px 0;
+    text-align: center;
+}
+
+.trophy-score-val {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--accent-cyan);
+}
     </style>
 </head>
 <body>
@@ -1471,6 +1572,47 @@
                 <div class="kit-perk-item"><i class="fa-solid fa-check"></i> Worn by active roster ballers across all clan war livestreams.</div>
             </div>
         </section>
+        <!-- ================= FEATURE 4: TROPHY CABINET ================= -->
+        <section class="trophy-section">
+            <div class="section-title-wrap">
+                <h3><i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> TROPHY CABINET</h3>
+                <span style="font-size:0.65rem; color:var(--accent-gold); background:rgba(251,191,36,0.12); border:1px solid rgba(251,191,36,0.3); padding:2px 7px; border-radius:6px; font-weight:700;">18 TITLES</span>
+            </div>
+
+            <div class="trophy-grid">
+                <!-- Trophy 1 -->
+                <div class="trophy-card" onclick="inspectTrophy(0)">
+                    <div class="trophy-icon-wrap">🏆</div>
+                    <div class="trophy-name">Asian Clan Masters</div>
+                    <div class="trophy-meta">Tier 1 Major • Season 4</div>
+                    <span class="trophy-tap-hint">TAP TO INSPECT</span>
+                </div>
+
+                <!-- Trophy 2 -->
+                <div class="trophy-card" onclick="inspectTrophy(1)">
+                    <div class="trophy-icon-wrap">🥇</div>
+                    <div class="trophy-name">Pro League Cup</div>
+                    <div class="trophy-meta">Grand Cup • 2026</div>
+                    <span class="trophy-tap-hint">TAP TO INSPECT</span>
+                </div>
+
+                <!-- Trophy 3 -->
+                <div class="trophy-card" onclick="inspectTrophy(2)">
+                    <div class="trophy-icon-wrap">🥈</div>
+                    <div class="trophy-name">eFootball Duo 2v2</div>
+                    <div class="trophy-meta">International Invitational</div>
+                    <span class="trophy-tap-hint">TAP TO INSPECT</span>
+                </div>
+
+                <!-- Trophy 4 -->
+                <div class="trophy-card" onclick="inspectTrophy(3)">
+                    <div class="trophy-icon-wrap">🏆</div>
+                    <div class="trophy-name">Cyber Clash Series</div>
+                    <div class="trophy-meta">National Invitation S2</div>
+                    <span class="trophy-tap-hint">TAP TO INSPECT</span>
+                </div>
+            </div>
+        </section>
 
         <!-- ================= FEATURE 7: OFFICIAL SOCIALS HUB ================= -->
         <section class="socials-section">
@@ -1641,6 +1783,47 @@
             </div>
         </div>
     </div>
+    <!-- ================= MODAL: TROPHY INSPECTION ================= -->
+    <div id="trophyDetailModal" class="modal-overlay" onclick="closeModal('trophyDetailModal', event)">
+        <div class="modal-box" style="max-width: 420px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h3 id="tModalTitle" style="font-family:'Orbitron'; font-size:0.92rem; color:#fff;">TOURNAMENT TITLE</h3>
+                    <span id="tModalTier" style="font-size:0.68rem; color:var(--accent-gold); font-weight:800;">OFFICIAL HONORS</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('trophyDetailModal')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Scoreboard -->
+                <div class="trophy-score-box">
+                    <div>
+                        <div style="font-family:'Orbitron'; font-size:0.75rem; color:#00f3ff; font-weight:800;">IUFC</div>
+                        <span style="font-size:0.62rem; color:var(--text-dim);">CHAMPIONS</span>
+                    </div>
+                    <div id="tModalScore" class="trophy-score-val">4 - 1</div>
+                    <div>
+                        <div id="tModalOpponent" style="font-family:'Orbitron'; font-size:0.75rem; color:#ffffff; font-weight:800;">OPPONENT</div>
+                        <span style="font-size:0.62rem; color:var(--text-dim);">RUNNER-UP</span>
+                    </div>
+                </div>
+
+                <!-- MVP Details -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:10px 12px; margin-bottom:8px;">
+                    <div style="font-size:0.65rem; color:var(--text-dim); text-transform:uppercase; font-family:'Rajdhani'; font-weight:700;">Finals MVP</div>
+                    <div id="tModalMvp" style="font-family:'Orbitron'; font-size:0.85rem; color:#10b981; font-weight:900; margin-top:2px;">PLAYER_NAME</div>
+                </div>
+
+                <!-- Winning Squad Lineup -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:10px 12px;">
+                    <div style="font-size:0.65rem; color:var(--text-dim); text-transform:uppercase; font-family:'Rajdhani'; font-weight:700; margin-bottom:6px;">Winning Combat Squad</div>
+                    <div id="tModalLineup" style="display:flex; flex-wrap:wrap; gap:6px;">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
@@ -1768,6 +1951,61 @@
             document.getElementById('qualifyingStat').value = statText;
 
             openModal('joinRosterModal');
+        }
+        /* ================= FEATURE 4: TROPHY DATA & MODAL ================= */
+        const TROPHY_ARCHIVE = [
+            {
+                title: "Asian Clan Masters S4",
+                tier: "Tier 1 Major • Undefeated Run",
+                score: "4 - 1",
+                opponent: "CYBER TITANS",
+                mvp: "IUFC_Apex (3 Goals, 1 Assist)",
+                lineup: ["IUFC_Ghost", "IUFC_Apex", "IUFC_Kaiser", "IUFC_Shadow", "IUFC_Viper"]
+            },
+            {
+                title: "Pro League Cup 2026",
+                tier: "Grand Finals • Clan War Series",
+                score: "3 - 2",
+                opponent: "TOKYO SAMURAI",
+                mvp: "IUFC_Kaiser (Match Winning Goal)",
+                lineup: ["IUFC_Kaiser", "IUFC_Phantom", "IUFC_Viper", "IUFC_Demon", "IUFC_Ghost"]
+            },
+            {
+                title: "eFootball Global 2v2",
+                tier: "International Duo Invitational",
+                score: "2 - 1",
+                opponent: "SEOUL STRIKERS",
+                mvp: "IUFC_Phantom & IUFC_Apex",
+                lineup: ["IUFC_Phantom", "IUFC_Apex"]
+            },
+            {
+                title: "Cyber Clash Series",
+                tier: "Invitational Major • Season 2",
+                score: "5 - 1",
+                opponent: "BALI ESPORTS",
+                mvp: "IUFC_Shadow (Hat-trick Hero)",
+                lineup: ["IUFC_Shadow", "IUFC_Ghost", "IUFC_Viper", "IUFC_Apex", "IUFC_Kaiser"]
+            }
+        ];
+
+        function inspectTrophy(index) {
+            const data = TROPHY_ARCHIVE[index];
+            if (!data) return;
+
+            document.getElementById('tModalTitle').innerText = data.title;
+            document.getElementById('tModalTier').innerText = data.tier;
+            document.getElementById('tModalScore').innerText = data.score;
+            document.getElementById('tModalOpponent').innerText = data.opponent;
+            document.getElementById('tModalMvp').innerText = data.mvp;
+
+            const lineupContainer = document.getElementById('tModalLineup');
+            lineupContainer.innerHTML = data.lineup.map(player => `
+                <span style="font-family:'Rajdhani', sans-serif; font-size:0.72rem; font-weight:800; color:#00f3ff; background:rgba(0,243,255,0.1); border:1px solid rgba(0,243,255,0.25); padding:2px 8px; border-radius:6px;">
+                    ${player}
+                </span>
+            `).join('');
+
+            openModal('trophyDetailModal');
         }
 
         function openModal(id) {
