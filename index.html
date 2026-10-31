@@ -1309,6 +1309,87 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+        /* ================= GLOWING ATTENTION-SEEKER BUTTON ================= */
+.btn-players-data {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: linear-gradient(90deg, #00f3ff 0%, #0077fe 50%, #00f3ff 100%);
+    background-size: 200% auto;
+    color: #040711;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 0 20px rgba(0, 243, 255, 0.6),
+        0 0 45px rgba(0, 119, 254, 0.4);
+    animation: attentionPulse 2s infinite ease-in-out, flowGradient 4s linear infinite;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-players-data:hover {
+    filter: brightness(1.15);
+}
+
+.btn-players-data:active {
+    transform: scale(0.97);
+}
+
+/* Diagonal laser shimmer light sweep */
+.btn-players-data::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.75),
+        transparent
+    );
+    transform: rotate(25deg);
+    animation: lightShimmerSweep 2.6s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes attentionPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 16px rgba(0, 243, 255, 0.5),
+            0 0 35px rgba(0, 119, 254, 0.35);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 
+            0 0 32px rgba(0, 243, 255, 0.95),
+            0 0 65px rgba(0, 119, 254, 0.7),
+            0 0 12px #ffffff;
+    }
+}
+
+@keyframes flowGradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes lightShimmerSweep {
+    0% { left: -100%; }
+    22% { left: 200%; }
+    100% { left: 200%; }
+}
     </style>
 </head>
 <body>
@@ -1374,11 +1455,15 @@
                 <button type="button" class="btn-join-roster" onclick="openModal('joinRosterModal')">
                     JOIN ROSTER
                 </button>
-                <button type="button" class="btn-war-logs" onclick="openModal('warLogsModal')">
-                    WAR LOGS
-                </button>
+                
             </div>
         </section>
+        <!-- GLOWING ATTENTION SEEKER BUTTON -->
+<a href="main.html" class="btn-players-data">
+    <i class="fa-solid fa-users-viewfinder" style="font-size:1.15rem;"></i>
+    <span>GO TO PLAYERS DATA</span>
+    <i class="fa-solid fa-arrow-right" style="font-size:0.95rem;"></i>
+</a>
 
         <!-- 3. BOTTOM METRICS PILL -->
         <section class="combat-pill-bottom">
