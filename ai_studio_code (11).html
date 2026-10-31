@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVISIBLE UNITED FC (IUFC) | Official eFootball Clan</title>
+    
+    <!-- Google Fonts for Cyber/eSports Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: #050a18;
+            --box-bg: #071022;
+            --accent-cyan: #00f3ff;
+            --accent-blue: #0077fe;
+            --accent-green: #10b981;
+            --accent-rose: #f87171;
+            --accent-gold: #fbbf24;
+            --text-dim: #94a3b8;
+            --border-neon: rgba(0, 243, 255, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 100% 50%, rgba(0, 119, 254, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 0% 90%, rgba(0, 243, 255, 0.06) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+        }
+
+        /* Center container matching mobile width */
+        .home-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* ================= HEADER SECTION ================= */
+        .clan-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 4px 6px;
+        }
+
+        /* Clan Logo Area */
+        .clan-logo-wrap {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 14px;
+            background: rgba(0, 243, 255, 0.06);
+            border: 1.5px solid rgba(0, 243, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .clan-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Clan Title & Subtitle */
+        .clan-identity {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .clan-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.8px;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .clan-name b {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.7);
+        }
+
+        .clan-tag {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.12);
+            border: 1px solid rgba(0, 243, 255, 0.35);
+            padding: 1px 6px;
+            border-radius: 6px;
+            font-weight: 800;
+        }
+
+        .clan-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            display: inline-block;
+            animation: pulse 1.6s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.8); }
+        }
+
+        /* ================= MAIN COMBAT CARD ================= */
+        .combat-card-main {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border-neon);
+            border-radius: 26px;
+            padding: 20px 18px 18px;
+            box-shadow: 0 10px 35px rgba(0, 243, 255, 0.08), inset 0 0 25px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        /* Top 3 Stat Boxes */
+        .combat-grid-top {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .combat-stat-box {
+            background: var(--box-bg);
+            border: 1px solid rgba(0, 243, 255, 0.22);
+            border-radius: 18px;
+            padding: 14px 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .combat-stat-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .combat-stat-val-cyan {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            margin-top: 4px;
+            text-shadow: 0 0 14px rgba(0, 243, 255, 0.65);
+        }
+
+        .combat-stat-val-white {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-top: 4px;
+        }
+
+        .combat-stat-val-gold {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Dual Action Buttons */
+        .combat-buttons-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-join-roster {
+            background: linear-gradient(90deg, #00d2ff 0%, #00f3ff 50%, #0077fe 100%);
+            color: #040711;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 16px;
+            padding: 15px 10px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6), 0 0 50px rgba(0, 119, 254, 0.3);
+            transition: transform 0.15s ease, filter 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-join-roster:active {
+            transform: scale(0.97);
+            filter: brightness(1.15);
+        }
+
+        .btn-war-logs {
+            background: #091124;
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 243, 255, 0.45);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 16px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.05);
+        }
+
+        .btn-war-logs:active {
+            transform: scale(0.97);
+            background: rgba(0, 243, 255, 0.15);
+            color: #ffffff;
+        }
+
+        /* ================= BOTTOM METRICS PILL ================= */
+        .combat-pill-bottom {
+            background: var(--card-bg);
+            border: 1.2px solid rgba(0, 243, 255, 0.28);
+            border-radius: 20px;
+            padding: 14px 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .combat-pill-col {
+            border-right: 1px solid rgba(0, 243, 255, 0.15);
+            padding: 0 4px;
+        }
+
+        .combat-pill-col:last-child {
+            border-right: none;
+        }
+
+        .combat-pill-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .combat-pill-val-cyan {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            margin-top: 3px;
+            display: block;
+        }
+
+        .combat-pill-val-white {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-top: 3px;
+            display: block;
+        }
+
+        .combat-pill-val-rose {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent-rose);
+            margin-top: 3px;
+            display: block;
+        }
+
+        .combat-pill-val-yellow {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-top: 5px;
+            white-space: nowrap;
+            display: block;
+        }
+
+        /* ================= MODALS / POPUPS ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: #070d1d;
+            border: 1.5px solid var(--border-neon);
+            border-radius: 22px;
+            width: 100%;
+            max-width: 420px;
+            padding: 22px 18px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9);
+            animation: popIn 0.25s ease-out;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.6rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body input, .modal-body select {
+            width: 100%;
+            padding: 12px 14px;
+            background: #040711;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .modal-body input:focus, .modal-body select:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .btn-modal-action {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00d2ff, #0077fe);
+            color: #040711;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="home-container">
+        
+        <!-- ================= HEADER SECTION ================= -->
+        <header class="clan-header">
+            <!-- CLAN LOGO (UPLOAD VIA LINK HERE) -->
+            <div class="clan-logo-wrap" title="Invisible United FC Official Logo">
+                <img 
+                    id="clanLogoImg" 
+                    src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=150&auto=format&fit=crop&q=80" 
+                    alt="IUFC Logo" 
+                    class="clan-logo-img"
+                    onerror="this.src='https://placehold.co/100x100/071022/00f3ff?text=IUFC'"
+                >
+            </div>
+
+            <!-- CLAN IDENTITY -->
+            <div class="clan-identity">
+                <h1 class="clan-name">
+                    INVISIBLE <b>UNITED FC</b>
+                    <span class="clan-tag">IUFC</span>
+                </h1>
+                <div class="clan-subtitle">
+                    <span class="pulse-dot"></span>
+                    <span>OFFICIAL EFOOTBALL MOBILE CLAN</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ================= COMBAT STATS MAIN CARD ================= -->
+        <section class="combat-card-main">
+            
+            <!-- Top 3 Stat Boxes -->
+            <div class="combat-grid-top">
+                
+                <!-- Box 1: Win Rate -->
+                <div class="combat-stat-box">
+                    <span class="combat-stat-label">WIN RATE</span>
+                    <span class="combat-stat-val-cyan" id="stat-winrate">82.4%</span>
+                </div>
+
+                <!-- Box 2: Matches -->
+                <div class="combat-stat-box">
+                    <span class="combat-stat-label">MATCHES</span>
+                    <span class="combat-stat-val-white" id="stat-matches">450</span>
+                </div>
+
+                <!-- Box 3: Trophies -->
+                <div class="combat-stat-box">
+                    <span class="combat-stat-label">TROPHIES</span>
+                    <div class="combat-stat-val-gold">
+                        <span id="stat-trophies">18</span>
+                        <span style="font-size:1.15rem;">🏆</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action Buttons: JOIN ROSTER & WAR LOGS -->
+            <div class="combat-buttons-row">
+                <button type="button" class="btn-join-roster" onclick="openModal('joinRosterModal')">
+                    JOIN ROSTER
+                </button>
+                <button type="button" class="btn-war-logs" onclick="openModal('warLogsModal')">
+                    WAR LOGS
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ================= BOTTOM METRICS PILL ================= -->
+        <section class="combat-pill-bottom">
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">WINS</span>
+                <span class="combat-pill-val-cyan" id="stat-wins">371</span>
+            </div>
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">DRAWS</span>
+                <span class="combat-pill-val-white" id="stat-draws">34</span>
+            </div>
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">LOSSES</span>
+                <span class="combat-pill-val-rose" id="stat-losses">45</span>
+            </div>
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">RANK TIER</span>
+                <span class="combat-pill-val-yellow" id="stat-ranktier">TOP 10</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= MODAL: JOIN ROSTER ================= -->
+    <div id="joinRosterModal" class="modal-overlay" onclick="closeModal('joinRosterModal', event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-family:'Orbitron'; font-size:0.95rem; color:#fff;">JOIN IUFC ROSTER</h3>
+                    <span style="font-size:0.68rem; color:#94a3b8; font-weight:700;">OFFICIAL RECRUITMENT APPLICATION</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('joinRosterModal')">&times;</button>
+            </div>
+            <form onsubmit="handleJoinSubmit(event)" class="modal-body">
+                <input type="text" id="gamertag" placeholder="Player Gamertag (e.g. IUFC_Ghost)" required>
+                <input type="text" id="efId" placeholder="eFootball Username / ID" required>
+                <select id="division">
+                    <option value="Division 1">Division 1 (Elite)</option>
+                    <option value="Division 2">Division 2</option>
+                    <option value="Division 3">Division 3</option>
+                </select>
+                <input type="text" id="winRateInput" placeholder="Win Rate (e.g. 80%)" required>
+                <input type="text" id="deviceInput" placeholder="Device (e.g. iPhone 15 Pro / S24)" required>
+                <input type="text" id="contactInput" placeholder="WhatsApp / Discord Contact" required>
+                <button type="submit" class="btn-modal-action">
+                    <i class="fa-solid fa-paper-plane"></i> TRANSMIT APPLICATION
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: WAR LOGS ================= -->
+    <div id="warLogsModal" class="modal-overlay" onclick="closeModal('warLogsModal', event)">
+        <div class="modal-box" style="max-width: 440px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-family:'Orbitron'; font-size:0.95rem; color:#fff;">IUFC WAR LOGS</h3>
+                    <span style="font-size:0.68rem; color:#10b981; font-weight:800;">🔥 9 MATCH WIN STREAK</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('warLogsModal')">&times;</button>
+            </div>
+            <div id="warLogsList" style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto;">
+                <!-- Dynamically rendered via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        /* 
+           ========================================================
+           IUFC CONFIGURATION:
+           Update your logo link & metrics directly here anytime!
+           ========================================================
+        */
+        const CLAN_CONFIG = {
+            // Paste your direct image logo URL here:
+            logoUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=150&auto=format&fit=crop&q=80",
+            
+            // Clan Stats
+            winRate: "82.4%",
+            matches: "450",
+            trophies: "18",
+            wins: "371",
+            draws: "34",
+            losses: "45",
+            rankTier: "TOP 10"
+        };
+
+        const RECENT_WAR_LOGS = [
+            { opponent: "CYBER TITANS", iufcScore: 4, oppScore: 1, mvp: "IUFC_Apex", tournament: "Asian Clan Masters" },
+            { opponent: "TOKYO SAMURAI EF", iufcScore: 3, oppScore: 2, mvp: "IUFC_Kaiser", tournament: "Pro League Cup" },
+            { opponent: "SEOUL STRIKERS", iufcScore: 2, oppScore: 0, mvp: "IUFC_Phantom", tournament: "Global 2v2 Cup" },
+            { opponent: "BALI ESPORTS", iufcScore: 5, oppScore: 1, mvp: "IUFC_Shadow", tournament: "Championship Series" }
+        ];
+
+        // Apply config to UI
+        function applyClanConfig() {
+            if (CLAN_CONFIG.logoUrl) {
+                document.getElementById('clanLogoImg').src = CLAN_CONFIG.logoUrl;
+            }
+            document.getElementById('stat-winrate').innerText = CLAN_CONFIG.winRate;
+            document.getElementById('stat-matches').innerText = CLAN_CONFIG.matches;
+            document.getElementById('stat-trophies').innerText = CLAN_CONFIG.trophies;
+            document.getElementById('stat-wins').innerText = CLAN_CONFIG.wins;
+            document.getElementById('stat-draws').innerText = CLAN_CONFIG.draws;
+            document.getElementById('stat-losses').innerText = CLAN_CONFIG.losses;
+            document.getElementById('stat-ranktier').innerText = CLAN_CONFIG.rankTier;
+
+            // Render War Logs
+            const list = document.getElementById('warLogsList');
+            if (list) {
+                list.innerHTML = RECENT_WAR_LOGS.map(m => `
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(0, 243, 255, 0.15); border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:0.62rem; color:#94a3b8; font-weight:700; text-transform:uppercase;">${m.tournament}</div>
+                            <div style="font-family:'Rajdhani', sans-serif; font-weight:800; font-size:0.92rem; color:#fff; margin-top:2px;">
+                                <span style="color:#00f3ff;">IUFC</span> vs <span>${m.opponent}</span>
+                            </div>
+                            <div style="font-size:0.65rem; color:#10b981; margin-top:2px;">MVP: <b>${m.mvp}</b></div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="background:#060b13; border:1px solid rgba(0, 243, 255, 0.35); color:#00f3ff; font-family:'Orbitron'; font-weight:900; font-size:0.85rem; padding:4px 10px; border-radius:8px;">
+                                ${m.iufcScore} - ${m.oppScore}
+                            </div>
+                            <span style="font-size:0.6rem; color:#10b981; font-weight:bold; display:block; margin-top:3px;">VICTORY</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Modal Controls
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id, event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function handleJoinSubmit(e) {
+            e.preventDefault();
+            const tag = document.getElementById('gamertag').value;
+            alert(`✅ APPLICATION RECEIVED!\nWelcome ${tag}. INVISIBLE UNITED FC leaders will review your credentials.`);
+            closeModal('joinRosterModal');
+            e.target.reset();
+        }
+
+        window.addEventListener('DOMContentLoaded', applyClanConfig);
+    </script>
+</body>
+</html>
