@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVISIBLE UNITED FC (IUFC) | Official eFootball Clan</title>
+    
+    <!-- Google Fonts for Cyber/eSports Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #020612;
+            --card-bg: rgba(5, 10, 24, 0.88);
+            --box-bg: rgba(7, 16, 34, 0.9);
+            --accent-cyan: #00f3ff;
+            --accent-blue: #0077fe;
+            --accent-green: #10b981;
+            --accent-rose: #f87171;
+            --accent-gold: #fbbf24;
+            --text-dim: #94a3b8;
+            --border-neon: rgba(0, 243, 255, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px 70px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ================= 1. SPECIAL BACKGROUND EFFECTS ================= */
+        
+        /* A. Cyber Perspective Grid */
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+            background-size: 38px 38px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(circle at 50% 30%, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 50% 30%, black 30%, transparent 80%);
+        }
+
+        /* B. Animated Volumetric Stadium Spotlights */
+        .spotlight-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .spotlight {
+            position: absolute;
+            top: -120px;
+            width: 280px;
+            height: 130vh;
+            transform-origin: top center;
+            clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+            filter: blur(40px);
+            opacity: 0.16;
+        }
+
+        /* Left Spotlight Swaying */
+        .spotlight-left {
+            left: 15%;
+            background: linear-gradient(180deg, rgba(0, 243, 255, 0.9) 0%, rgba(0, 119, 254, 0.3) 60%, transparent 95%);
+            animation: swayLeft 9s ease-in-out infinite alternate;
+        }
+
+        /* Right Spotlight Swaying */
+        .spotlight-right {
+            right: 15%;
+            background: linear-gradient(180deg, rgba(0, 119, 254, 0.95) 0%, rgba(0, 243, 255, 0.25) 60%, transparent 95%);
+            animation: swayRight 11s ease-in-out infinite alternate;
+        }
+
+        /* Center Ambient Spotlight Pulse */
+        .spotlight-center {
+            left: 50%;
+            margin-left: -140px;
+            width: 320px;
+            background: linear-gradient(180deg, rgba(0, 243, 255, 0.7) 0%, transparent 80%);
+            animation: pulseCenter 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes swayLeft {
+            0% { transform: rotate(-20deg) scaleY(1); opacity: 0.12; }
+            50% { opacity: 0.24; }
+            100% { transform: rotate(14deg) scaleY(1.08); opacity: 0.14; }
+        }
+
+        @keyframes swayRight {
+            0% { transform: rotate(18deg) scaleY(1.05); opacity: 0.14; }
+            50% { opacity: 0.26; }
+            100% { transform: rotate(-16deg) scaleY(1); opacity: 0.10; }
+        }
+
+        @keyframes pulseCenter {
+            0% { opacity: 0.08; transform: scaleX(0.85); }
+            100% { opacity: 0.22; transform: scaleX(1.2); }
+        }
+
+        /* Mobile centered main container */
+        .home-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            z-index: 1; /* Sits above the spotlight background */
+        }
+
+        /* ================= 2. HEADER SECTION ================= */
+        .clan-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 4px 6px;
+        }
+
+        /* Floating Logo Badge with Glow */
+        .clan-logo-wrap {
+            width: 54px;
+            height: 54px;
+            min-width: 54px;
+            border-radius: 16px;
+            background: rgba(0, 243, 255, 0.08);
+            border: 1.8px solid rgba(0, 243, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.35);
+            animation: logoFloat 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoFloat {
+            0% { transform: translateY(0px); box-shadow: 0 0 15px rgba(0, 243, 255, 0.25); }
+            100% { transform: translateY(-4px); box-shadow: 0 0 25px rgba(0, 243, 255, 0.55); }
+        }
+
+        .clan-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .clan-identity {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .clan-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.8px;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .clan-name b {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.7);
+        }
+
+        .clan-tag {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.12);
+            border: 1px solid rgba(0, 243, 255, 0.35);
+            padding: 1px 6px;
+            border-radius: 6px;
+            font-weight: 800;
+        }
+
+        .clan-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            display: inline-block;
+            animation: pulse 1.6s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.8); }
+        }
+
+        /* ================= 3. COMBAT STATS MAIN CARD ================= */
+        .combat-card-main {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid var(--border-neon);
+            border-radius: 26px;
+            padding: 20px 18px 18px;
+            box-shadow: 0 10px 35px rgba(0, 243, 255, 0.1), inset 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .combat-grid-top {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .combat-stat-box {
+            background: var(--box-bg);
+            border: 1px solid rgba(0, 243, 255, 0.22);
+            border-radius: 18px;
+            padding: 14px 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .combat-stat-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .combat-stat-val-cyan {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            margin-top: 4px;
+            text-shadow: 0 0 14px rgba(0, 243, 255, 0.65);
+        }
+
+        .combat-stat-val-white {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-top: 4px;
+        }
+
+        .combat-stat-val-gold {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .combat-buttons-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-join-roster {
+            background: linear-gradient(90deg, #00d2ff 0%, #00f3ff 50%, #0077fe 100%);
+            color: #040711;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 16px;
+            padding: 15px 10px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6), 0 0 50px rgba(0, 119, 254, 0.3);
+            transition: transform 0.15s ease, filter 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-join-roster:active {
+            transform: scale(0.97);
+            filter: brightness(1.15);
+        }
+
+        .btn-war-logs {
+            background: #091124;
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 243, 255, 0.45);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 16px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.05);
+        }
+
+        .btn-war-logs:active {
+            transform: scale(0.97);
+            background: rgba(0, 243, 255, 0.15);
+            color: #ffffff;
+        }
+
+        /* ================= 4. BOTTOM METRICS PILL ================= */
+        .combat-pill-bottom {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1.2px solid rgba(0, 243, 255, 0.28);
+            border-radius: 20px;
+            padding: 14px 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .combat-pill-col {
+            border-right: 1px solid rgba(0, 243, 255, 0.15);
+            padding: 0 4px;
+        }
+
+        .combat-pill-col:last-child {
+            border-right: none;
+        }
+
+        .combat-pill-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .combat-pill-val-cyan {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            margin-top: 3px;
+            display: block;
+        }
+
+        .combat-pill-val-white {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-top: 3px;
+            display: block;
+        }
+
+        .combat-pill-val-rose {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent-rose);
+            margin-top: 3px;
+            display: block;
+        }
+
+        .combat-pill-val-yellow {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-top: 5px;
+            white-space: nowrap;
+            display: block;
+        }
+
+        /* ================= 5. ANIMATED MARQUEE TICKER (LIKE THE VIDEO) ================= */
+        .marquee-strip {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            overflow: hidden;
+            background: rgba(4, 8, 20, 0.92);
+            border-top: 1px solid rgba(0, 243, 255, 0.25);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.25);
+            padding: 9px 0;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.08);
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            gap: 36px;
+            animation: scrollMarquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        .marquee-item b {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
+        }
+
+        .ball-icon {
+            font-size: 0.85rem;
+            animation: spinBall 4s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes spinBall {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ================= 6. FEATURE 1: ELIGIBILITY EVALUATOR ================= */
+        .evaluator-section {
+            background: linear-gradient(180deg, rgba(7, 16, 34, 0.92) 0%, rgba(5, 10, 24, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            border-radius: 22px;
+            padding: 18px 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-header-tag {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .section-header-tag h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-header-tag span {
+            font-size: 0.65rem;
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--accent-cyan);
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+
+        .eval-inputs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .eval-field label {
+            display: block;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .eval-field select {
+            width: 100%;
+            background: #040814;
+            color: #ffffff;
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            border-radius: 12px;
+            padding: 10px 8px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .eval-field select:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .eval-result-card {
+            background: rgba(0, 243, 255, 0.04);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eval-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .eval-sub {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+            line-height: 1.3;
+        }
+
+        .btn-apply-eval {
+            background: rgba(0, 243, 255, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 8px 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .btn-apply-eval:hover {
+            background: var(--accent-cyan);
+            color: #040711;
+        }
+
+        /* ================= 7. FEATURE 5: CLAN PERKS ================= */
+        .perks-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .perks-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-left: 4px;
+        }
+
+        .perks-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .perk-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 13px 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .perk-card:hover {
+            border-color: rgba(0, 243, 255, 0.4);
+            transform: translateX(3px);
+        }
+
+        .perk-icon-box {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+        }
+
+        .perk-info h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: #ffffff;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .perk-info p {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            line-height: 1.35;
+        }
+
+        /* ================= 8. FEATURE 6: COMMUNITY PORTAL ================= */
+        .community-banner {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1) 0%, rgba(16, 185, 129, 0.06) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.35);
+            border-radius: 20px;
+            padding: 16px 14px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .comm-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .comm-sub {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .comm-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-whatsapp {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            padding: 12px 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.72rem;
+            letter-spacing: 0.8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-whatsapp:active {
+            transform: scale(0.97);
+            background: #10b981;
+            color: #040711;
+        }
+
+        .btn-discord {
+            background: rgba(88, 101, 242, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(88, 101, 242, 0.4);
+            border-radius: 12px;
+            padding: 12px 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.72rem;
+            letter-spacing: 0.8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-discord:active {
+            transform: scale(0.97);
+            background: #5865f2;
+            color: #ffffff;
+        }
+
+        /* ================= MODALS ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: #070d1d;
+            border: 1.5px solid var(--border-neon);
+            border-radius: 22px;
+            width: 100%;
+            max-width: 420px;
+            padding: 22px 18px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9);
+            animation: popIn 0.25s ease-out;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.6rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body input, .modal-body select {
+            width: 100%;
+            padding: 12px 14px;
+            background: #040711;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .modal-body input:focus, .modal-body select:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .btn-modal-action {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00d2ff, #0077fe);
+            color: #040711;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= BACKGROUND EFFECT: CYBER GRID ================= -->
+    <div class="cyber-grid"></div>
+
+    <!-- ================= BACKGROUND EFFECT: STADIUM SPOTLIGHT BEAMS ================= -->
+    <div class="spotlight-wrapper">
+        <div class="spotlight spotlight-left"></div>
+        <div class="spotlight spotlight-center"></div>
+        <div class="spotlight spotlight-right"></div>
+    </div>
+
+    <!-- ================= MAIN FOREGROUND CONTENT ================= -->
+    <main class="home-container">
+        
+        <!-- 1. HEADER -->
+        <header class="clan-header">
+            <div class="clan-logo-wrap" title="Invisible United FC Official Logo">
+                <img 
+                    id="clanLogoImg" 
+                    src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=150&auto=format&fit=crop&q=80" 
+                    alt="IUFC Logo" 
+                    class="clan-logo-img"
+                    onerror="this.src='https://placehold.co/100x100/071022/00f3ff?text=IUFC'"
+                >
+            </div>
+
+            <div class="clan-identity">
+                <h1 class="clan-name">
+                    INVISIBLE <b>UNITED FC</b>
+                    <span class="clan-tag">IUFC</span>
+                </h1>
+                <div class="clan-subtitle">
+                    <span class="pulse-dot"></span>
+                    <span>OFFICIAL EFOOTBALL MOBILE CLAN</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. COMBAT STATS MAIN CARD -->
+        <section class="combat-card-main">
+            <div class="combat-grid-top">
+                <div class="combat-stat-box">
+                    <span class="combat-stat-label">WIN RATE</span>
+                    <span class="combat-stat-val-cyan" id="stat-winrate">82.4%</span>
+                </div>
+                <div class="combat-stat-box">
+                    <span class="combat-stat-label">MATCHES</span>
+                    <span class="combat-stat-val-white" id="stat-matches">450</span>
+                </div>
+                <div class="combat-stat-box">
+                    <span class="combat-stat-label">TROPHIES</span>
+                    <div class="combat-stat-val-gold">
+                        <span id="stat-trophies">18</span>
+                        <span style="font-size:1.15rem;">🏆</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="combat-buttons-row">
+                <button type="button" class="btn-join-roster" onclick="openModal('joinRosterModal')">
+                    JOIN ROSTER
+                </button>
+                <button type="button" class="btn-war-logs" onclick="openModal('warLogsModal')">
+                    WAR LOGS
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. BOTTOM METRICS PILL -->
+        <section class="combat-pill-bottom">
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">WINS</span>
+                <span class="combat-pill-val-cyan" id="stat-wins">371</span>
+            </div>
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">DRAWS</span>
+                <span class="combat-pill-val-white" id="stat-draws">34</span>
+            </div>
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">LOSSES</span>
+                <span class="combat-pill-val-rose" id="stat-losses">45</span>
+            </div>
+            <div class="combat-pill-col">
+                <span class="combat-pill-label">RANK TIER</span>
+                <span class="combat-pill-val-yellow" id="stat-ranktier">TOP 10</span>
+            </div>
+        </section>
+
+        <!-- 4. INFINITE MARQUEE TICKER (FROM VIDEO) -->
+        <div class="marquee-strip">
+            <div class="marquee-track">
+                <span class="marquee-item"><span class="ball-icon">⚽</span> INVISIBLE UNITED FC</span>
+                <span class="marquee-item"><span class="ball-icon">🔥</span> <b>9 MATCH WIN STREAK</b></span>
+                <span class="marquee-item"><span class="ball-icon">🏆</span> GLOBAL TOP 10 RANK</span>
+                <span class="marquee-item"><span class="ball-icon">⚡</span> <b>82.4% WIN RATE</b></span>
+                <span class="marquee-item"><span class="ball-icon">🛡️</span> OFFICIAL RECRUITMENT OPEN</span>
+                <!-- Loop duplicated for seamless infinite flow -->
+                <span class="marquee-item"><span class="ball-icon">⚽</span> INVISIBLE UNITED FC</span>
+                <span class="marquee-item"><span class="ball-icon">🔥</span> <b>9 MATCH WIN STREAK</b></span>
+                <span class="marquee-item"><span class="ball-icon">🏆</span> GLOBAL TOP 10 RANK</span>
+                <span class="marquee-item"><span class="ball-icon">⚡</span> <b>82.4% WIN RATE</b></span>
+                <span class="marquee-item"><span class="ball-icon">🛡️</span> OFFICIAL RECRUITMENT OPEN</span>
+            </div>
+        </div>
+
+        <!-- 5. FEATURE 1: ELIGIBILITY EVALUATOR -->
+        <section class="evaluator-section">
+            <div class="section-header-tag">
+                <h3><i class="fa-solid fa-radar" style="color:var(--accent-cyan);"></i> ROSTER EVALUATOR</h3>
+                <span>INSTANT CHECK</span>
+            </div>
+
+            <div class="eval-inputs-grid">
+                <div class="eval-field">
+                    <label>Current Division</label>
+                    <select id="evalDivision" onchange="handleDivisionSwitch()">
+                        <option value="div1" selected>Division 1 (Elite)</option>
+                        <option value="div2">Division 2</option>
+                        <option value="div3">Division 3</option>
+                        <option value="div4">Division 4+</option>
+                    </select>
+                </div>
+
+                <!-- Visible IF Div 1 -->
+                <div class="eval-field" id="wrapRank">
+                    <label>Highest Global Rank</label>
+                    <select id="evalRank" onchange="calculateEligibility()">
+                        <option value="top500">Top 500 Global</option>
+                        <option value="top2000" selected>Top 2,000</option>
+                        <option value="top5000">Top 5,000</option>
+                        <option value="top10000">Top 10,000+</option>
+                        <option value="unranked">Div 1 Climber</option>
+                    </select>
+                </div>
+
+                <!-- Visible IF Div 2, 3, 4 -->
+                <div class="eval-field" id="wrapWinRate" style="display:none;">
+                    <label>Current Win Rate</label>
+                    <select id="evalWinRate" onchange="calculateEligibility()">
+                        <option value="wr75" selected>75% or Higher</option>
+                        <option value="wr65">65% – 74%</option>
+                        <option value="wr55">55% – 64%</option>
+                        <option value="wrBelow">&lt; 55%</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="eval-result-card" id="evalResultBox">
+                <div>
+                    <div class="eval-badge" id="evalBadgeText" style="color:#00f3ff;">🟢 IUFC MAIN ROSTER</div>
+                    <div class="eval-sub" id="evalSubText">Direct qualification for official Clan Wars & Tournaments.</div>
+                </div>
+                <button type="button" class="btn-apply-eval" onclick="applyFromEvaluator()">
+                    APPLY NOW
+                </button>
+            </div>
+        </section>
+
+        <!-- 6. FEATURE 5: CLAN PERKS -->
+        <section class="perks-section">
+            <h3 class="perks-header">
+                <i class="fa-solid fa-crown" style="color:var(--accent-gold);"></i> 
+                WHY JOIN IUFC?
+            </h3>
+            
+            <div class="perks-grid">
+                <div class="perk-card">
+                    <div class="perk-icon-box" style="background:rgba(251, 191, 36, 0.12); color:#fbbf24; border:1px solid rgba(251, 191, 36, 0.3);">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="perk-info">
+                        <h4>Weekly Prize Tournaments</h4>
+                        <p>Compete in internal Swiss cups, Auction leagues, and 2v2 tournaments with real rewards.</p>
+                    </div>
+                </div>
+
+                <div class="perk-card">
+                    <div class="perk-icon-box" style="background:rgba(0, 243, 255, 0.12); color:#00f3ff; border:1px solid rgba(0, 243, 255, 0.3);">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <div class="perk-info">
+                        <h4>Division 1 Pro Coaching</h4>
+                        <p>1v1 tactical sparring, custom formation blueprints, and squad reviews by Top 500 members.</p>
+                    </div>
+                </div>
+
+                <div class="perk-card">
+                    <div class="perk-icon-box" style="background:rgba(16, 185, 129, 0.12); color:#10b981; border:1px solid rgba(16, 185, 129, 0.3);">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <div class="perk-info">
+                        <h4>Official eSports Player Card</h4>
+                        <p>Verified members receive a personalized, high-definition clan graphic card for social media.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FEATURE 6: COMMUNITY PORTAL -->
+        <section class="community-banner">
+            <div class="comm-title">WANT TO PLAY FRIENDLIES FIRST?</div>
+            <p class="comm-sub">Join 300+ eFootball ballers in our official open rooms for daily scrims and meta discussion.</p>
+            <div class="comm-buttons">
+                <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE" target="_blank" class="btn-whatsapp" id="linkWhatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size:1.1rem;"></i> WHATSAPP
+                </a>
+                <a href="https://discord.gg/YOUR_INVITE" target="_blank" class="btn-discord" id="linkDiscord">
+                    <i class="fa-brands fa-discord" style="font-size:1.1rem;"></i> DISCORD
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= MODAL: JOIN ROSTER ================= -->
+    <div id="joinRosterModal" class="modal-overlay" onclick="closeModal('joinRosterModal', event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-family:'Orbitron'; font-size:0.95rem; color:#fff;">JOIN IUFC ROSTER</h3>
+                    <span style="font-size:0.68rem; color:#94a3b8; font-weight:700;">OFFICIAL RECRUITMENT APPLICATION</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('joinRosterModal')">&times;</button>
+            </div>
+            <form onsubmit="handleJoinSubmit(event)" class="modal-body">
+                <input type="text" id="gamertag" placeholder="Player Gamertag (e.g. IUFC_Ghost)" required>
+                <input type="text" id="efId" placeholder="eFootball Username / ID" required>
+                <select id="division">
+                    <option value="Division 1">Division 1 (Elite)</option>
+                    <option value="Division 2">Division 2</option>
+                    <option value="Division 3">Division 3</option>
+                    <option value="Division 4">Division 4+</option>
+                </select>
+                <input type="text" id="qualifyingStat" placeholder="Highest Rank or Win Rate" required>
+                <input type="text" id="deviceInput" placeholder="Device (e.g. iPhone 15 Pro / S24)" required>
+                <input type="text" id="contactInput" placeholder="WhatsApp / Discord Contact" required>
+                <button type="submit" class="btn-modal-action">
+                    <i class="fa-solid fa-paper-plane"></i> TRANSMIT APPLICATION
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: WAR LOGS ================= -->
+    <div id="warLogsModal" class="modal-overlay" onclick="closeModal('warLogsModal', event)">
+        <div class="modal-box" style="max-width: 440px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-family:'Orbitron'; font-size:0.95rem; color:#fff;">IUFC WAR LOGS</h3>
+                    <span style="font-size:0.68rem; color:#10b981; font-weight:800;">🔥 9 MATCH WIN STREAK</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('warLogsModal')">&times;</button>
+            </div>
+            <div id="warLogsList" style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto;">
+                <!-- Populated via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        const CLAN_CONFIG = {
+            logoUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=150&auto=format&fit=crop&q=80",
+            whatsappLink: "https://chat.whatsapp.com/YOUR_GROUP_LINK",
+            discordLink: "https://discord.gg/YOUR_DISCORD_LINK",
+
+            winRate: "82.4%",
+            matches: "450",
+            trophies: "18",
+            wins: "371",
+            draws: "34",
+            losses: "45",
+            rankTier: "TOP 10"
+        };
+
+        const RECENT_WAR_LOGS = [
+            { opponent: "CYBER TITANS", iufcScore: 4, oppScore: 1, mvp: "IUFC_Apex", tournament: "Asian Clan Masters" },
+            { opponent: "TOKYO SAMURAI EF", iufcScore: 3, oppScore: 2, mvp: "IUFC_Kaiser", tournament: "Pro League Cup" },
+            { opponent: "SEOUL STRIKERS", iufcScore: 2, oppScore: 0, mvp: "IUFC_Phantom", tournament: "Global 2v2 Cup" },
+            { opponent: "BALI ESPORTS", iufcScore: 5, oppScore: 1, mvp: "IUFC_Shadow", tournament: "Championship Series" }
+        ];
+
+        function initClanPage() {
+            if (CLAN_CONFIG.logoUrl) document.getElementById('clanLogoImg').src = CLAN_CONFIG.logoUrl;
+            if (CLAN_CONFIG.whatsappLink) document.getElementById('linkWhatsapp').href = CLAN_CONFIG.whatsappLink;
+            if (CLAN_CONFIG.discordLink) document.getElementById('linkDiscord').href = CLAN_CONFIG.discordLink;
+
+            document.getElementById('stat-winrate').innerText = CLAN_CONFIG.winRate;
+            document.getElementById('stat-matches').innerText = CLAN_CONFIG.matches;
+            document.getElementById('stat-trophies').innerText = CLAN_CONFIG.trophies;
+            document.getElementById('stat-wins').innerText = CLAN_CONFIG.wins;
+            document.getElementById('stat-draws').innerText = CLAN_CONFIG.draws;
+            document.getElementById('stat-losses').innerText = CLAN_CONFIG.losses;
+            document.getElementById('stat-ranktier').innerText = CLAN_CONFIG.rankTier;
+
+            const list = document.getElementById('warLogsList');
+            if (list) {
+                list.innerHTML = RECENT_WAR_LOGS.map(m => `
+                    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(0, 243, 255, 0.15); border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:0.62rem; color:#94a3b8; font-weight:700; text-transform:uppercase;">${m.tournament}</div>
+                            <div style="font-family:'Rajdhani', sans-serif; font-weight:800; font-size:0.92rem; color:#fff; margin-top:2px;">
+                                <span style="color:#00f3ff;">IUFC</span> vs <span>${m.opponent}</span>
+                            </div>
+                            <div style="font-size:0.65rem; color:#10b981; margin-top:2px;">MVP: <b>${m.mvp}</b></div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="background:#060b13; border:1px solid rgba(0, 243, 255, 0.35); color:#00f3ff; font-family:'Orbitron'; font-weight:900; font-size:0.85rem; padding:4px 10px; border-radius:8px;">
+                                ${m.iufcScore} - ${m.oppScore}
+                            </div>
+                            <span style="font-size:0.6rem; color:#10b981; font-weight:bold; display:block; margin-top:3px;">VICTORY</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            calculateEligibility();
+        }
+
+        function handleDivisionSwitch() {
+            const div = document.getElementById('evalDivision').value;
+            const rankWrap = document.getElementById('wrapRank');
+            const winRateWrap = document.getElementById('wrapWinRate');
+
+            if (div === 'div1') {
+                rankWrap.style.display = 'block';
+                winRateWrap.style.display = 'none';
+            } else {
+                rankWrap.style.display = 'none';
+                winRateWrap.style.display = 'block';
+            }
+            calculateEligibility();
+        }
+
+        function calculateEligibility() {
+            const div = document.getElementById('evalDivision').value;
+            const badge = document.getElementById('evalBadgeText');
+            const sub = document.getElementById('evalSubText');
+
+            if (div === 'div1') {
+                const rank = document.getElementById('evalRank').value;
+                if (rank === 'top500' || rank === 'top2000') {
+                    badge.innerText = "🟢 IUFC MAIN COMBAT ROSTER";
+                    badge.style.color = "#00f3ff";
+                    sub.innerText = "Direct qualification for official Clan Wars and Tier 1 cups.";
+                } else {
+                    badge.innerText = "🟡 IUFC PRO RESERVE";
+                    badge.style.color = "#fbbf24";
+                    sub.innerText = "Eligible for Clan War rotation & Tier 2 competition squad.";
+                }
+            } else if (div === 'div2') {
+                const wr = document.getElementById('evalWinRate').value;
+                if (wr === 'wr75') {
+                    badge.innerText = "🟡 IUFC PRO RESERVE";
+                    badge.style.color = "#fbbf24";
+                    sub.innerText = "High win rate! Fast-track evaluation for the primary squad.";
+                } else {
+                    badge.innerText = "🔵 IUFC ACADEMY SQUAD";
+                    badge.style.color = "#38bdf8";
+                    sub.innerText = "Receive Div 1 coaching and tactical support to push top tier.";
+                }
+            } else {
+                badge.innerText = "⚪ COMMUNITY CONTENDER";
+                badge.style.color = "#94a3b8";
+                sub.innerText = "Join our friendly rooms to sharpen your skills with clan mentors.";
+            }
+        }
+
+        function applyFromEvaluator() {
+            const div = document.getElementById('evalDivision');
+            const divText = div.options[div.selectedIndex].text;
+            
+            let statText = "";
+            if (div.value === 'div1') {
+                const rank = document.getElementById('evalRank');
+                statText = "Rank: " + rank.options[rank.selectedIndex].text;
+            } else {
+                const wr = document.getElementById('evalWinRate');
+                statText = "Win Rate: " + wr.options[wr.selectedIndex].text;
+            }
+
+            document.getElementById('division').value = divText.split(' ')[0] + " " + divText.split(' ')[1];
+            document.getElementById('qualifyingStat').value = statText;
+
+            openModal('joinRosterModal');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id, event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function handleJoinSubmit(e) {
+            e.preventDefault();
+            const tag = document.getElementById('gamertag').value;
+            alert(`✅ APPLICATION TRANSMITTED!\nPlayer: ${tag}\nIUFC Clan Administrators will review your credentials.`);
+            closeModal('joinRosterModal');
+            e.target.reset();
+        }
+
+        window.addEventListener('DOMContentLoaded', initClanPage);
+    </script>
+</body>
+</html>
