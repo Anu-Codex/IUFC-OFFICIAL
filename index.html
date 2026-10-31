@@ -1198,6 +1198,67 @@
     font-weight: 900;
     color: var(--accent-cyan);
 }
+        /* ================= REAL-TIME BURNING FIRE AURA ================= */
+.roster-section {
+    position: relative !important;
+    border: 2px solid #ff4500 !important;
+    border-radius: 26px;
+    background: #050a18 !important;
+    box-shadow: 
+        0 -6px 20px rgba(255, 69, 0, 0.75),
+        0 4px 25px rgba(255, 120, 0, 0.4),
+        0 0 30px rgba(255, 30, 0, 0.5),
+        inset 0 0 20px rgba(255, 80, 0, 0.25) !important;
+    animation: fireFlickerAura 1.8s infinite alternate ease-in-out;
+}
+
+/* Outer burning flame glow */
+.roster-section::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 28px;
+    background: linear-gradient(0deg, #ff1a00, #ff7b00, #ffea00, #ff2a00);
+    background-size: 200% 200%;
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0.75;
+    animation: fireMotion 2.5s ease infinite alternate;
+}
+
+@keyframes fireMotion {
+    0% { background-position: 0% 50%; opacity: 0.65; filter: blur(6px); }
+    50% { background-position: 100% 50%; opacity: 0.9; filter: blur(10px); }
+    100% { background-position: 50% 100%; opacity: 0.7; filter: blur(7px); }
+}
+
+@keyframes fireFlickerAura {
+    0% {
+        box-shadow: 
+            0 -6px 18px rgba(255, 60, 0, 0.7),
+            0 2px 25px rgba(255, 110, 0, 0.35),
+            0 0 25px rgba(255, 30, 0, 0.5),
+            inset 0 0 15px rgba(255, 80, 0, 0.2);
+    }
+    100% {
+        box-shadow: 
+            0 -12px 32px rgba(255, 100, 0, 0.95),
+            0 4px 35px rgba(255, 150, 0, 0.5),
+            0 0 40px rgba(255, 50, 0, 0.7),
+            inset 0 0 25px rgba(255, 120, 0, 0.35);
+    }
+}
+
+/* Canvas for rising real-time embers */
+#fireCanvas {
+    position: absolute;
+    top: -25px;
+    left: -15px;
+    width: calc(100% + 30px);
+    height: calc(100% + 40px);
+    pointer-events: none;
+    z-index: 10;
+}
     </style>
 </head>
 <body>
@@ -1414,6 +1475,7 @@
         </section>
         <!-- ================= FEATURE 1: 2x3 ADMIN ROSTER ================= -->
         <section class="roster-section">
+            <canvas id="fireCanvas"></canvas>
             <div class="section-title-wrap">
                 <h3><i class="fa-solid fa-shield-halved" style="color:var(--accent-cyan);"></i> CLAN COMMAND</h3>
                 <span style="font-size:0.65rem; color:var(--accent-cyan); background:rgba(0,243,255,0.1); padding:2px 7px; border-radius:6px; font-weight:700;">6 LEADERS</span>
@@ -2007,6 +2069,83 @@
 
             openModal('trophyDetailModal');
         }
+        /* ================= REAL-TIME FIRE EMBERS ENGINE ================= */
+(function initFireEmbers() {
+    const canvas = document.getElementById('fireCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    function resizeCanvas() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    const maxParticles = 45; // Smooth 60 FPS mobile performance
+    const fireColors = ['#ffffff', '#ffea00', '#ff7700', '#ff3300', '#b30000'];
+
+    class FireParticle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            // Spawn around perimeter (sides, bottom, top)
+            const side = Math.random();
+            if (side < 0.5) {
+                // Bottom & Top
+                this.x = Math.random() * width;
+                this.y = (side < 0.2) ? height - 15 : 20 + Math.random() * 20;
+            } else {
+                // Left & Right edges
+                this.x = (side < 0.75) ? 15 + Math.random() * 10 : width - 25 + Math.random() * 10;
+                this.y = Math.random() * height;
+            }
+
+            this.vx = (Math.random() - 0.5) * 1.2;
+            this.vy = -(Math.random() * 2.2 + 1.2); // Rises upward
+            this.size = Math.random() * 3.5 + 1.5;
+            this.life = 0;
+            this.maxLife = Math.random() * 45 + 25;
+            this.color = fireColors[Math.floor(Math.random() * fireColors.length)];
+        }
+        update() {
+            this.x += this.vx + (Math.random() - 0.5) * 0.5;
+            this.y += this.vy;
+            this.size = Math.max(0, this.size - 0.05);
+            this.life++;
+            if (this.life >= this.maxLife || this.size <= 0) {
+                this.reset();
+            }
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#ff5500';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < maxParticles; i++) {
+        particles.push(new FireParticle());
+    }
+
+    function animateFire() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'lighter';
+
+        for (let p of particles) {
+            p.update();
+            p.draw();
+        }
+        requestAnimationFrame(animateFire);
+    }
+    animateFire();
+})();
 
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
