@@ -324,6 +324,80 @@
         </button>
     </div>
 </div>
+            <!-- ================= MODAL: MANUAL TOURNAMENT STATS EDITOR ================= -->
+<div id="tourStatsModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box" style="max-width: 460px;">
+        <div class="modal-header">
+            <h3 style="color:#fbbf24; font-family:'Orbitron', sans-serif; font-size:1rem;">
+                <i class="fa-solid fa-pen-to-square"></i> EDIT TOURNAMENT STATS
+            </h3>
+            <button class="modal-close" onclick="closeTourStatsModal()">&times;</button>
+        </div>
+
+        <form id="manualTourStatsForm" onsubmit="saveManualTourStats(event)" class="modal-body">
+            <!-- 1. Select Player -->
+            <label class="form-label">SELECT PLAYER</label>
+            <select id="adminPlayerSelect" class="admin-input" required>
+                <option value="">Loading players...</option>
+            </select>
+
+            <!-- 2. Select Tournament -->
+            <label class="form-label">SELECT TOURNAMENT</label>
+            <select id="adminTourSelect" class="admin-input" onchange="loadExistingPlayerTourStats()" required>
+                <option value="">Loading tournaments...</option>
+            </select>
+
+            <!-- 3. Tournament Rank (e.g. 1, 2, or Rank 1) -->
+            <label class="form-label">TOURNAMENT RANK (OPTIONAL)</label>
+            <input type="text" id="statRank" class="admin-input" placeholder="e.g. 1 or Rank 1 🥇">
+
+            <!-- 4. W / D / L Grid -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
+                <div>
+                    <label class="form-label" style="color:#10b981;">WINS</label>
+                    <input type="number" id="statWins" class="admin-input" value="0" min="0" oninput="autoCalculateMetrics()" required>
+                </div>
+                <div>
+                    <label class="form-label" style="color:#fbbf24;">DRAWS</label>
+                    <input type="number" id="statDraws" class="admin-input" value="0" min="0" oninput="autoCalculateMetrics()" required>
+                </div>
+                <div>
+                    <label class="form-label" style="color:#ef4444;">LOSSES</label>
+                    <input type="number" id="statLosses" class="admin-input" value="0" min="0" oninput="autoCalculateMetrics()" required>
+                </div>
+            </div>
+
+            <!-- 5. Goals & Matches Played -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <div>
+                    <label class="form-label">MATCHES PLAYED</label>
+                    <input type="number" id="statPlayed" class="admin-input" value="0" min="0" readonly style="opacity:0.8;">
+                </div>
+                <div>
+                    <label class="form-label">GOALS SCORED</label>
+                    <input type="number" id="statGoals" class="admin-input" value="0" min="0" required>
+                </div>
+            </div>
+
+            <!-- 6. Auto-Calculated Live Points & Efficiency -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; background:#060b13; padding:10px; border-radius:12px; border:1px solid #1e293b;">
+                <div>
+                    <label class="form-label" style="color:#fbbf24;">POINTS (W*3 + D*1)</label>
+                    <input type="number" id="statPoints" class="admin-input" value="0" style="color:#fbbf24; font-weight:800;" readonly>
+                </div>
+                <div>
+                    <label class="form-label" style="color:#00f3ff;">EFFICIENCY (PPM)</label>
+                    <input type="text" id="statPpm" class="admin-input" value="0.00" style="color:#00f3ff; font-weight:800;" readonly>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="saveStatsBtn" class="btn-modal-action" style="margin-top:10px; background:linear-gradient(90deg, #f59e0b, #facc15); color:#000; font-weight:900;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOURNAMENT STATS
+            </button>
+        </form>
+    </div>
+</div>
         </div>
 
         <!-- 3. TEAMS (Creation & Management) -->
@@ -3163,6 +3237,140 @@ async function updateGiveawayStatus(id, newStatus) {
         loadGiveawayAdminList();
     } else {
         alert("❌ Failed to update status");
+    }
+}
+        /* ================= DASHBOARD: MANUAL TOURNAMENT STATS ENGINE ================= */
+let dbPlayersCache = [];
+let dbToursCache = [];
+
+// 1. Open the modal & fetch latest players and tournaments
+async function openTourStatsModal(preSelectedPlayerId = null) {
+    document.getElementById('tourStatsModal').style.display = 'flex';
+
+    const playerDropdown = document.getElementById('adminPlayerSelect');
+    const tourDropdown = document.getElementById('adminTourSelect');
+
+    try {
+        const [playersRes, toursAuctionRes, toursSoloRes] = await Promise.all([
+            fetch(`${API}/api/players`),
+            fetch(`${API}/api/tournaments/list/auction`).catch(() => null),
+            fetch(`${API}/api/tournaments/list/solo`).catch(() => null)
+        ]);
+
+        dbPlayersCache = await playersRes.json();
+        
+        let allTours = [];
+        if (toursAuctionRes && toursAuctionRes.ok) allTours = allTours.concat(await toursAuctionRes.json());
+        if (toursSoloRes && toursSoloRes.ok) allTours = allTours.concat(await toursSoloRes.json());
+        dbToursCache = allTours;
+
+        // Populate Players
+        playerDropdown.innerHTML = '<option value="">-- Choose Player --</option>' +
+            dbPlayersCache.map(p => `<option value="${p._id}" ${preSelectedPlayerId === p._id ? 'selected' : ''}>${p.name}</option>`).join('');
+
+        // Populate Tournaments
+        tourDropdown.innerHTML = '<option value="">-- Choose Tournament --</option>' +
+            dbToursCache.map(t => `<option value="${t._id}">${t.name}</option>`).join('');
+
+    } catch (err) {
+        console.error("Error initializing stats modal:", err);
+    }
+}
+
+function closeTourStatsModal() {
+    document.getElementById('tourStatsModal').style.display = 'none';
+}
+
+// 2. Real-time auto-calculation of Played, Points (W:3, D:1, L:0), and Efficiency (Points / Played)
+function autoCalculateMetrics() {
+    const wins = Number(document.getElementById('statWins').value) || 0;
+    const draws = Number(document.getElementById('statDraws').value) || 0;
+    const losses = Number(document.getElementById('statLosses').value) || 0;
+
+    const played = wins + draws + losses;
+    const points = (wins * 3) + (draws * 1);
+    const efficiency = played > 0 ? (points / played).toFixed(2) : "0.00";
+
+    document.getElementById('statPlayed').value = played;
+    document.getElementById('statPoints').value = points;
+    document.getElementById('statPpm').value = efficiency;
+}
+
+// 3. Auto-load existing stats if previously saved for this player + tournament
+function loadExistingPlayerTourStats() {
+    const playerId = document.getElementById('adminPlayerSelect').value;
+    const tourId = document.getElementById('adminTourSelect').value;
+    if (!playerId || !tourId) return;
+
+    const player = dbPlayersCache.find(p => p._id === playerId);
+    if (!player || !player.tournamentStats) return;
+
+    const existing = player.tournamentStats.find(t => String(t.tourId) === String(tourId));
+    if (existing) {
+        document.getElementById('statWins').value = existing.wins || 0;
+        document.getElementById('statDraws').value = existing.draws || 0;
+        document.getElementById('statLosses').value = existing.losses || 0;
+        document.getElementById('statGoals').value = existing.goals || 0;
+        document.getElementById('statRank').value = existing.rank || '';
+        autoCalculateMetrics();
+    }
+}
+
+// 4. Save to Database
+async function saveManualTourStats(e) {
+    e.preventDefault();
+    const btn = document.getElementById('saveStatsBtn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SAVING...';
+    btn.disabled = true;
+
+    const playerId = document.getElementById('adminPlayerSelect').value;
+    const tourId = document.getElementById('adminTourSelect').value;
+    const tourObj = dbToursCache.find(t => t._id === tourId);
+
+    const statsPayload = {
+        tourId: tourId,
+        tourName: tourObj ? tourObj.name : "Tournament",
+        rank: document.getElementById('statRank').value.trim(),
+        wins: Number(document.getElementById('statWins').value) || 0,
+        draws: Number(document.getElementById('statDraws').value) || 0,
+        losses: Number(document.getElementById('statLosses').value) || 0,
+        played: Number(document.getElementById('statPlayed').value) || 0,
+        goals: Number(document.getElementById('statGoals').value) || 0,
+        points: Number(document.getElementById('statPoints').value) || 0,
+        efficiency: document.getElementById('statPpm').value
+    };
+
+    try {
+        // Send to backend player profile update
+        const res = await fetch(`${API}/api/players/${playerId}/tournament-stats`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(statsPayload)
+        });
+
+        // Fallback: If your backend uses standard PUT /api/players/:id
+        if (!res.ok) {
+            const player = dbPlayersCache.find(p => p._id === playerId);
+            let existingList = player.tournamentStats || [];
+            // Remove old entry for this tour if it exists, then append new
+            existingList = existingList.filter(t => String(t.tourId) !== String(tourId));
+            existingList.push(statsPayload);
+
+            await fetch(`${API}/api/players/${playerId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tournamentStats: existingList })
+            });
+        }
+
+        alert("✅ TOURNAMENT STATS SAVED SUCCESSFULLY!");
+        closeTourStatsModal();
+    } catch (err) {
+        alert("Error saving stats: " + err.message);
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
     }
 }
 
