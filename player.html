@@ -1031,6 +1031,115 @@
     opacity: 0;
     pointer-events: none;
 }
+        /* ================= SUMMARY CARD STYLING ================= */
+.season-summary-card {
+    background: #080d1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 20px 18px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 10px;
+}
+
+.summary-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.summary-title-wrap i {
+    font-size: 1.1rem;
+}
+
+/* Dropdown */
+.summary-tour-select {
+    background: #0d1527;
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    max-width: 150px;
+}
+
+.summary-box-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.stat-mini-box {
+    background: #0d1527;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 12px 6px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-label {
+    font-size: 0.68rem;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.box-value {
+    font-size: 1.45rem;
+    font-weight: 800;
+}
+
+.val-green { color: #10b981; }
+.val-gold  { color: #fbbf24; }
+.val-red   { color: #ef4444; }
+
+.summary-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.row-label {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+}
+
+.row-val {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
     </style>
 </head>
 <body>
@@ -1176,19 +1285,71 @@
     </div>
 </div>
 
-        <!-- SEASON SUMMARY -->
-        <div class="glass-card">
-            <div class="section-title"><i class="fa-solid fa-chart-simple"></i> Season summary</div>
-            <div class="stats-grid" style="margin-bottom: 20px;">
-                <div class="stat-box"><span>Wins</span><b id="sWins" style="color:var(--win)">0</b></div>
-                <div class="stat-box"><span>Draws</span><b id="sDraws" style="color:var(--draw)">0</b></div>
-                <div class="stat-box"><span>Losses</span><b id="sLoss" style="color:var(--loss)">0</b></div>
-            </div>
-            <div class="summary-row"><span>Games played</span><span id="sPlayed">0</span></div>
-            <div class="summary-row"><span>Win rate</span><span id="sWinRate">0%</span></div>
-            <div class="summary-row"><span>Goals scored</span><span id="sGoals">0</span></div>
-            <div class="summary-row"><span>Goals per match</span><span id="sGPM">0.0</span></div>
+        <!-- ================= SEASON & TOURNAMENT SUMMARY CARD ================= -->
+<div class="season-summary-card">
+    <!-- Header with Dynamic Database Dropdown -->
+    <div class="summary-header">
+        <div class="summary-title-wrap">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Season summary</span>
         </div>
+        
+        <!-- Tournament Dropdown (Populated from DB) -->
+        <select id="dbTourDropdown" class="summary-tour-select" onchange="onSelectTournament(this.value)">
+            <option value="overall">Overall Season</option>
+            <!-- Populated dynamically via JavaScript from Database -->
+        </select>
+    </div>
+
+    <!-- 3 Top Stat Boxes -->
+    <div class="summary-box-grid">
+        <div class="stat-mini-box">
+            <span class="box-label">WINS</span>
+            <span class="box-value val-green" id="sumWins">0</span>
+        </div>
+        <div class="stat-mini-box">
+            <span class="box-label">DRAWS</span>
+            <span class="box-value val-gold" id="sumDraws">0</span>
+        </div>
+        <div class="stat-mini-box">
+            <span class="box-label">LOSSES</span>
+            <span class="box-value val-red" id="sumLosses">0</span>
+        </div>
+    </div>
+
+    <!-- Stats Breakdown Rows -->
+    <div class="summary-rows">
+        <div class="summary-row">
+            <span class="row-label">Games played</span>
+            <span class="row-val" id="sumGames">0</span>
+        </div>
+        <div class="summary-row">
+            <span class="row-label">Win rate</span>
+            <span class="row-val" id="sumWinRate">0%</span>
+        </div>
+
+        <!-- NEW: POINTS (WIN: 3, DRAW: 1, LOSS: 0) -->
+        <div class="summary-row">
+            <span class="row-label">Points (3/1/0)</span>
+            <span class="row-val" id="sumPoints" style="color: #fbbf24;">0</span>
+        </div>
+
+        <!-- NEW: EFFICIENCY (POINTS ÷ MATCHES PLAYED) -->
+        <div class="summary-row">
+            <span class="row-label">Efficiency (PPM)</span>
+            <span class="row-val" id="sumEfficiency" style="color: #00f3ff;">0.00</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="row-label">Goals scored</span>
+            <span class="row-val" id="sumGoals">0</span>
+        </div>
+        <div class="summary-row">
+            <span class="row-label">Goals per match</span>
+            <span class="row-val" id="sumGpm">0.0</span>
+        </div>
+    </div>
+</div>
 
         <!-- UPDATED TROPHIES SECTION -->
 <div class="glass-card">
@@ -2231,6 +2392,149 @@ function renderTournamentHistory() {
         </div>
     `).join('');
         }
+        /* ================= DATABASE TOURNAMENT & STATS CONTROLLER ================= */
+
+// In-memory cache for tournament fixtures/standings
+let playerTournamentsList = [];
+
+// 1. Fetch tournaments from the database and populate the dropdown
+async function loadDatabaseTournaments() {
+    const dropdown = document.getElementById('dbTourDropdown');
+    if (!dropdown) return;
+
+    try {
+        // Fetch all active tournament types from the database API
+        const [resAuction, resSolo] = await Promise.all([
+            fetch(`${API}/api/tournaments/list/auction`).catch(() => null),
+            fetch(`${API}/api/tournaments/list/solo`).catch(() => null)
+        ]);
+
+        let tours = [];
+        if (resAuction && resAuction.ok) tours = tours.concat(await resAuction.json());
+        if (resSolo && resSolo.ok) tours = tours.concat(await resSolo.json());
+
+        // Deduplicate & save
+        playerTournamentsList = tours;
+
+        if (tours.length > 0) {
+            tours.forEach(tour => {
+                const opt = document.createElement('option');
+                opt.value = tour._id;
+                opt.textContent = tour.name;
+                dropdown.appendChild(opt);
+            });
+        }
+    } catch (err) {
+        console.warn("Could not load dynamic tournament list from DB:", err);
+    }
+}
+
+// 2. Calculate and update UI with Points and Efficiency
+function displayComputedStats(stats) {
+    const wins = Number(stats.wins || 0);
+    const draws = Number(stats.draws || 0);
+    const losses = Number(stats.losses || 0);
+    const played = Number(stats.played || (wins + draws + losses));
+    const goals = Number(stats.goals || 0);
+
+    // FORMULA: POINTS = (WIN * 3) + (DRAW * 1) + (LOSS * 0)
+    const points = (wins * 3) + (draws * 1);
+
+    // FORMULA: EFFICIENCY = (POINTS ÷ MATCHES PLAYED)
+    const efficiency = played > 0 ? (points / played).toFixed(2) : "0.00";
+
+    // Win Rate & GPM
+    const winRate = played > 0 ? ((wins / played) * 100).toFixed(1) + "%" : "0%";
+    const gpm = played > 0 ? (goals / played).toFixed(1) : "0.0";
+
+    // Update Elements
+    document.getElementById('sumWins').innerText = wins;
+    document.getElementById('sumDraws').innerText = draws;
+    document.getElementById('sumLosses').innerText = losses;
+    document.getElementById('sumGames').innerText = played;
+    document.getElementById('sumWinRate').innerText = winRate;
+    document.getElementById('sumPoints').innerText = points;
+    document.getElementById('sumEfficiency').innerText = efficiency;
+    document.getElementById('sumGoals').innerText = goals;
+    document.getElementById('sumGpm').innerText = gpm;
+}
+
+// 3. Dropdown change listener
+async function onSelectTournament(tourId) {
+    if (tourId === "overall") {
+        // Loads default player season/career numbers
+        if (typeof currentUserData !== 'undefined' && currentUserData) {
+            displayComputedStats({
+                wins: currentUserData.wins || 0,
+                draws: currentUserData.draws || 0,
+                losses: currentUserData.losses || 0,
+                goals: currentUserData.goals || 0
+            });
+        }
+        return;
+    }
+
+    // Show temporary loading state
+    document.getElementById('sumPoints').innerText = "...";
+    document.getElementById('sumEfficiency').innerText = "...";
+
+    try {
+        // Fetch fixtures/standings for the selected tournament from DB
+        const res = await fetch(`${API}/api/smart/fixtures/${tourId}`);
+        const fixtures = await res.json();
+
+        // Get active player name/ID from page
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerId = urlParams.get('id');
+        const playerName = document.querySelector('.player-name')?.innerText || "";
+
+        let tourWins = 0, tourDraws = 0, tourLosses = 0, tourGoals = 0, tourPlayed = 0;
+
+        if (Array.isArray(fixtures)) {
+            fixtures.forEach(m => {
+                if (m.status !== 'Completed') return;
+
+                const isPlayerA = (m.playerAId === playerId || m.playerA === playerName);
+                const isPlayerB = (m.playerBId === playerId || m.playerB === playerName);
+
+                if (isPlayerA) {
+                    tourPlayed++;
+                    const sA = Number(m.scoreA || 0);
+                    const sB = Number(m.scoreB || 0);
+                    tourGoals += sA;
+                    if (sA > sB) tourWins++;
+                    else if (sA === sB) tourDraws++;
+                    else tourLosses++;
+                } else if (isPlayerB) {
+                    tourPlayed++;
+                    const sA = Number(m.scoreA || 0);
+                    const sB = Number(m.scoreB || 0);
+                    tourGoals += sB;
+                    if (sB > sA) tourWins++;
+                    else if (sA === sB) tourDraws++;
+                    else tourLosses++;
+                }
+            });
+        }
+
+        // Compute with the exact formulas
+        displayComputedStats({
+            wins: tourWins,
+            draws: tourDraws,
+            losses: tourLosses,
+            played: tourPlayed,
+            goals: tourGoals
+        });
+
+    } catch (e) {
+        console.error("Error fetching tournament stats:", e);
+    }
+}
+
+// 4. Initialize on page load
+window.addEventListener('DOMContentLoaded', () => {
+    loadDatabaseTournaments();
+});
 
 // Call it
 
