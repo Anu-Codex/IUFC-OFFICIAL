@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Profile | NEXUS LEGENDS</title>
+    <title>Player Profile | IUFC OFFICIAL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -898,6 +898,139 @@
     margin-right: 4px;
     font-weight: 700;
 }
+        /* ================= IUFC LIVE CYBER LOADER STYLING ================= */
+#nl-loader-wrapper {
+    position: fixed;
+    inset: 0;
+    background: #000000 !important;
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nl-loader-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nl-logo-container {
+    width: 170px;
+    height: 75px;
+    margin-bottom: 15px;
+}
+
+.iufc-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.iufc-svg path {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Letters I & F: Radiant Metallic Gold */
+.path-i, .path-f {
+    stroke: #fbbf24;
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawIUFC 2.2s ease-in-out infinite;
+}
+
+/* Letters U & C: Electric Cyber Yellow */
+.path-u, .path-c {
+    stroke: #facc15;
+    filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.8));
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    animation: drawIUFC 2.2s ease-in-out infinite 0.25s;
+}
+
+/* Center Glowing Pulse Point */
+.iufc-core {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 12px #facc15);
+    animation: corePulse 1.1s ease-in-out infinite alternate;
+}
+
+@keyframes drawIUFC {
+    0% { stroke-dashoffset: 220; opacity: 0.1; }
+    30% { opacity: 1; }
+    50% { stroke-dashoffset: 0; }
+    80% { opacity: 1; }
+    100% { stroke-dashoffset: -220; opacity: 0.1; }
+}
+
+@keyframes corePulse {
+    0% { transform: scale(0.9); opacity: 0.4; }
+    100% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 15px #ffd700); }
+}
+
+/* Text Branding */
+.nl-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    font-weight: 900;
+    margin-top: 5px;
+}
+
+.iufc-text-gold {
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+    margin-right: 4px;
+}
+
+.iufc-text-yellow {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+.iufc-subtext {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #71717a;
+    letter-spacing: 2px;
+    margin-top: 6px;
+    text-transform: uppercase;
+}
+
+/* Progress bar in Gold to Yellow */
+.nl-progress-mini {
+    width: 120px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    margin-top: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.nl-bar {
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(90deg, #f59e0b, #facc15, #ffd700);
+    box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+    animation: barMove 1.6s infinite linear;
+}
+
+@keyframes barMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+
+.loader-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -906,27 +1039,39 @@
         <a href="index.html" class="back-link"><i class="fa-solid fa-chevron-left"></i> Back</a>
     </nav>
 
-    <div id="nl-loader-wrapper">
+    <!-- ================= IUFC eSPORTS LIVE LOADER ================= -->
+<div id="nl-loader-wrapper">
     <div class="nl-loader-content">
+        <!-- Animated Cyber IUFC Monogram -->
         <div class="nl-logo-container">
-            <svg viewBox="0 0 100 100" class="nl-svg">
-                <!-- The "N" Path -->
-                <path class="letter-n" d="M20,70 L20,30 L50,70 L50,30" />
-                <!-- The "L" Path -->
-                <path class="letter-l" d="M60,30 L60,70 L85,70" />
-                
-                <!-- Intersecting Glow Point -->
-                <circle class="nexus-point" cx="50" cy="70" r="3" />
+            <svg viewBox="0 0 144 60" class="iufc-svg">
+                <!-- Letter I -->
+                <path class="path-i" d="M18,12 L18,48" />
+                <!-- Letter U (Angular eSports Cut) -->
+                <path class="path-u" d="M38,12 L38,39 L45,48 L55,48 L62,39 L62,12" />
+                <!-- Letter F -->
+                <path class="path-f" d="M80,48 L80,12 L100,12 M80,28 L94,28" />
+                <!-- Letter C (Hexagonal Cut) -->
+                <path class="path-c" d="M132,21 L124,12 L114,12 L106,20 L106,40 L114,48 L124,48 L132,39" />
+                <!-- Glowing Energy Core Point -->
+                <circle class="iufc-core" cx="80" cy="48" r="3.5" />
             </svg>
         </div>
+
+        <!-- Clan Title -->
         <div class="nl-text">
-            <span class="n-text">Loading</span><span class="l-text">Profile...</span>
+            <span class="iufc-text-gold">INVINSIBLE</span>
+            <span class="iufc-text-yellow">UNITED FC</span>
         </div>
+
+        <span class="iufc-subtext">PLAYERS DATA LOADING... </span>
+
+        <!-- Gold/Yellow Progress Bar -->
         <div class="nl-progress-mini">
             <div class="nl-bar"></div>
         </div>
     </div>
-    </div>
+</div>
 
     <div id="playerContent" style="display: none;">
         <div id="profileCard" class="glass-card-themed">
@@ -1286,8 +1431,8 @@
 </div>
 
     <script>
-    const API = "https://pes-park-backend.onrender.com";
-    const API_V2 = "https://nexus-database-v2.onrender.com";
+    const API = "https://iufc-backend.onrender.com";
+    const API_V2 = "https://iufc-backend-support.onrender.com";
     const urlParams = new URLSearchParams(window.location.search);
     const playerId = urlParams.get('id');
 
