@@ -1608,6 +1608,7 @@
             const res = await fetch(`${API}/api/players/profile/${playerId}`);
             const data = await res.json();
             const p = data.player;
+            window.currentUserProfile = p; // Stores profile for manual stats lookup
             fetch(`${API_V2}/api/players/${playerId}/view`, { method: 'POST' })
             .then(res => res.json())
             .then(data => console.log("👀 [View Tracker]:", data))
@@ -2465,8 +2466,7 @@ function displayComputedStats(stats) {
     document.getElementById('sumGpm').innerText = gpm;
 }
 
-// 3. Dropdown change listener
-// ✅ FIXED: Restores Overall Season cleanly and matches playerName by ID
+/* Replace onSelectTournament in player (6).html with this: */
 async function onSelectTournament(tourId) {
     if (tourId === "overall") {
         if (window.currentUserOverallStats) {
@@ -2475,15 +2475,30 @@ async function onSelectTournament(tourId) {
         return;
     }
 
-    // Loading indicator
+    // 1. Check if Admin manually saved stats on the player document
+    if (window.currentUserProfile && window.currentUserProfile.tournamentStats) {
+        const manualSaved = window.currentUserProfile.tournamentStats.find(t => String(t.tourId) === String(tourId));
+        if (manualSaved) {
+            displayComputedStats({
+                wins: manualSaved.wins,
+                draws: manualSaved.draws,
+                losses: manualSaved.losses,
+                played: manualSaved.played,
+                goals: manualSaved.goals,
+                points: manualSaved.points,
+                efficiency: manualSaved.efficiency
+            });
+            return; // Finished loading manual stats!
+        }
+    }
+
+    // 2. Otherwise fallback to calculating from completed fixtures in DB
     document.getElementById('sumPoints').innerText = "...";
     document.getElementById('sumEfficiency').innerText = "...";
 
     try {
         const res = await fetch(`${API}/api/smart/fixtures/${tourId}`);
         const fixtures = await res.json();
-
-        // Fixed selector: uses global myName or id="pName"
         const playerName = myName || document.getElementById('pName')?.innerText.trim() || "";
 
         let tourWins = 0, tourDraws = 0, tourLosses = 0, tourGoals = 0, tourPlayed = 0;
@@ -2491,31 +2506,23 @@ async function onSelectTournament(tourId) {
         if (Array.isArray(fixtures)) {
             fixtures.forEach(m => {
                 if (m.status !== 'Completed') return;
+                const isA = (m.playerAId === playerId || (m.playerA && m.playerA.toLowerCase() === playerName.toLowerCase()));
+                const isB = (m.playerBId === playerId || (m.playerB && m.playerB.toLowerCase() === playerName.toLowerCase()));
 
-                const isPlayerA = (m.playerAId === playerId || (m.playerA && m.playerA.toLowerCase() === playerName.toLowerCase()));
-                const isPlayerB = (m.playerBId === playerId || (m.playerB && m.playerB.toLowerCase() === playerName.toLowerCase()));
-
-                if (isPlayerA) {
+                if (isA) {
                     tourPlayed++;
-                    const sA = Number(m.scoreA || 0);
-                    const sB = Number(m.scoreB || 0);
+                    const sA = Number(m.scoreA || 0), sB = Number(m.scoreB || 0);
                     tourGoals += sA;
-                    if (sA > sB) tourWins++;
-                    else if (sA === sB) tourDraws++;
-                    else tourLosses++;
-                } else if (isPlayerB) {
+                    if (sA > sB) tourWins++; else if (sA === sB) tourDraws++; else tourLosses++;
+                } else if (isB) {
                     tourPlayed++;
-                    const sA = Number(m.scoreA || 0);
-                    const sB = Number(m.scoreB || 0);
+                    const sA = Number(m.scoreA || 0), sB = Number(m.scoreB || 0);
                     tourGoals += sB;
-                    if (sB > sA) tourWins++;
-                    else if (sA === sB) tourDraws++;
-                    else tourLosses++;
+                    if (sB > sA) tourWins++; else if (sA === sB) tourDraws++; else tourLosses++;
                 }
             });
         }
 
-        // Computes Points (W:3, D:1, L:0) & Efficiency (Points / Games)
         displayComputedStats({
             wins: tourWins,
             draws: tourDraws,
@@ -2523,7 +2530,6 @@ async function onSelectTournament(tourId) {
             played: tourPlayed,
             goals: tourGoals
         });
-
     } catch (e) {
         console.error("Error fetching tournament stats:", e);
     }
