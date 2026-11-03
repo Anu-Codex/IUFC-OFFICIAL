@@ -1697,23 +1697,29 @@ if (p.image && p.image !== "") {
             }
         }
 
-            // 2. Automated Season Summary
-            let w = 0, d = 0, l = 0, g = 0;
-            playerMatches.forEach(m => {
-                const isA = m.playerA === myName;
-                const myS = isA ? m.scoreA : m.scoreB;
-                const oppS = isA ? m.scoreB : m.scoreA;
-                g += myS;
-                if (myS > oppS) w++; else if (myS === oppS) d++; else l++;
-            });
+            // ✅ FIXED: Correct IDs + Saves Overall Data + Calculates Points & Efficiency
+let w = 0, d = 0, l = 0, g = 0;
+playerMatches.forEach(m => {
+    const isA = m.playerA === myName;
+    const myS = Number(isA ? m.scoreA : m.scoreB) || 0;
+    const oppS = Number(isA ? m.scoreB : m.scoreA) || 0;
+    g += myS;
+    if (myS > oppS) w++; 
+    else if (myS === oppS) d++; 
+    else l++;
+});
 
-            document.getElementById('sWins').innerText = w;
-            document.getElementById('sDraws').innerText = d;
-            document.getElementById('sLoss').innerText = l;
-            document.getElementById('sPlayed').innerText = playerMatches.length;
-            document.getElementById('sGoals').innerText = g;
-            document.getElementById('sWinRate').innerText = playerMatches.length > 0 ? Math.round((w / playerMatches.length) * 100) + "%" : "0%";
-            document.getElementById('sGPM').innerText = playerMatches.length > 0 ? (g / playerMatches.length).toFixed(1) : "0.0";
+// Cache overall stats for the dropdown switcher
+window.currentUserOverallStats = {
+    wins: w,
+    draws: d,
+    losses: l,
+    played: playerMatches.length,
+    goals: g
+};
+
+// Compute and display Points and Efficiency on initial load
+displayComputedStats(window.currentUserOverallStats);
 
             // 3. Recent Form (Last 5)
             // --- EXACT JS FIX FOR RECENT FORM ---
@@ -2460,33 +2466,25 @@ function displayComputedStats(stats) {
 }
 
 // 3. Dropdown change listener
+// ✅ FIXED: Restores Overall Season cleanly and matches playerName by ID
 async function onSelectTournament(tourId) {
     if (tourId === "overall") {
-        // Loads default player season/career numbers
-        if (typeof currentUserData !== 'undefined' && currentUserData) {
-            displayComputedStats({
-                wins: currentUserData.wins || 0,
-                draws: currentUserData.draws || 0,
-                losses: currentUserData.losses || 0,
-                goals: currentUserData.goals || 0
-            });
+        if (window.currentUserOverallStats) {
+            displayComputedStats(window.currentUserOverallStats);
         }
         return;
     }
 
-    // Show temporary loading state
+    // Loading indicator
     document.getElementById('sumPoints').innerText = "...";
     document.getElementById('sumEfficiency').innerText = "...";
 
     try {
-        // Fetch fixtures/standings for the selected tournament from DB
         const res = await fetch(`${API}/api/smart/fixtures/${tourId}`);
         const fixtures = await res.json();
 
-        // Get active player name/ID from page
-        const urlParams = new URLSearchParams(window.location.search);
-        const playerId = urlParams.get('id');
-        const playerName = document.querySelector('.player-name')?.innerText || "";
+        // Fixed selector: uses global myName or id="pName"
+        const playerName = myName || document.getElementById('pName')?.innerText.trim() || "";
 
         let tourWins = 0, tourDraws = 0, tourLosses = 0, tourGoals = 0, tourPlayed = 0;
 
@@ -2494,8 +2492,8 @@ async function onSelectTournament(tourId) {
             fixtures.forEach(m => {
                 if (m.status !== 'Completed') return;
 
-                const isPlayerA = (m.playerAId === playerId || m.playerA === playerName);
-                const isPlayerB = (m.playerBId === playerId || m.playerB === playerName);
+                const isPlayerA = (m.playerAId === playerId || (m.playerA && m.playerA.toLowerCase() === playerName.toLowerCase()));
+                const isPlayerB = (m.playerBId === playerId || (m.playerB && m.playerB.toLowerCase() === playerName.toLowerCase()));
 
                 if (isPlayerA) {
                     tourPlayed++;
@@ -2517,7 +2515,7 @@ async function onSelectTournament(tourId) {
             });
         }
 
-        // Compute with the exact formulas
+        // Computes Points (W:3, D:1, L:0) & Efficiency (Points / Games)
         displayComputedStats({
             wins: tourWins,
             draws: tourDraws,
@@ -2530,6 +2528,7 @@ async function onSelectTournament(tourId) {
         console.error("Error fetching tournament stats:", e);
     }
 }
+
 
 // 4. Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {
