@@ -1067,7 +1067,7 @@ document.getElementById('attrMent').value = attr.mental || 50;
         if(f) f.onsubmit = async (e) => {
             e.preventDefault();
             const res = await fetch(url, { method, headers: {'Content-Type': 'application/json'}, body: JSON.stringify(dataFn()) });
-            if(res.ok) { alert("Database Updated!"); location.reload(); }
+            if(res.ok) { alert("Database Updated!"); }
         };
     };
 
