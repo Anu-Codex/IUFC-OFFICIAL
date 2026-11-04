@@ -46,6 +46,165 @@
         .row-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* ================= MANUAL STATS EDITOR STYLING ================= */
+.dash-stats-editor-card {
+    background: #09090d;
+    border: 1.5px solid rgba(251, 191, 36, 0.35);
+    border-radius: 22px;
+    padding: 22px 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(251, 191, 36, 0.1);
+    box-sizing: border-box;
+}
+
+.dash-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.editor-status-badge {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.dash-dropdowns-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.dash-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dash-field-group label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #a1a1aa;
+    text-transform: uppercase;
+}
+
+.dash-select, .dash-input {
+    width: 100%;
+    background: #040406;
+    border: 1px solid #27272a;
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 11px 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dash-select:focus, .dash-input:focus {
+    border-color: #fbbf24;
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
+}
+
+.dash-record-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.in-green { color: #10b981 !important; }
+.in-gold  { color: #fbbf24 !important; }
+.in-red   { color: #ef4444 !important; }
+
+.dash-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+/* Computed Box (Points & Efficiency) */
+.dash-computed-box {
+    margin-top: 16px;
+    background: #020204;
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 14px;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.computed-tag {
+    display: block;
+    font-size: 0.65rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 800;
+    color: #a1a1aa;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+}
+
+.computed-val-gold {
+    background: transparent;
+    border: none;
+    color: #fbbf24;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    width: 100%;
+    outline: none;
+}
+
+.computed-val-cyan {
+    background: transparent;
+    border: none;
+    color: #00f3ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    width: 100%;
+    outline: none;
+}
+
+.btn-dash-save {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    background: linear-gradient(90deg, #d4af37 0%, #ffd700 50%, #b8860b 100%);
+    color: #000000;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn-dash-save:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+.btn-dash-save:active {
+    transform: scale(0.98);
+}
     </style>
 </head>
 <body>
@@ -324,82 +483,91 @@
         </button>
     </div>
 </div>
-            <!-- ================= MODAL: MANUAL TOURNAMENT STATS EDITOR ================= -->
-      <div class="sub-box" style="border-left: 4px solid var(--accent); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 25, 38, 0.7) 100%); margin-top: 15px;">      
-<div id="tourStatsModal" class="modal-overlay" style="display:none;">
-    <div class="modal-box" style="max-width: 460px;">
-        <div class="modal-header">
-            <h3 style="color:#fbbf24; font-family:'Orbitron', sans-serif; font-size:1rem;">
-                <i class="fa-solid fa-pen-to-square"></i> EDIT TOURNAMENT STATS
-            </h3>
-            <button class="modal-close" onclick="closeTourStatsModal()">&times;</button>
+            <!-- ================= MANUAL TOURNAMENT STATS EDITOR ================= -->
+<div class="dash-stats-editor-card">
+    <div class="dash-card-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <i class="fa-solid fa-pen-ruler" style="color:#fbbf24; font-size:1.2rem;"></i>
+            <div>
+                <h3 style="margin:0; font-family:'Orbitron', sans-serif; font-size:1.05rem; color:#fff;">TOURNAMENT STATS MANAGER</h3>
+                <span style="font-size:0.68rem; color:#94a3b8; font-weight:700;">MANUAL OVERRIDE FOR SPECIFIC PLAYER & TOURNAMENT</span>
+            </div>
+        </div>
+        <span id="editorStatusPill" class="editor-status-badge">READY</span>
+    </div>
+
+    <form id="dashStatsForm" onsubmit="handleStatsSave(event)">
+        <!-- Step 1 & Step 2: Selectors Grid -->
+        <div class="dash-dropdowns-grid">
+            <!-- 1. Player Dropdown -->
+            <div class="dash-field-group">
+                <label><i class="fa-solid fa-user" style="color:#fbbf24;"></i> 1. SELECT PLAYER</label>
+                <select id="dashPlayerSelect" class="dash-select" onchange="onPlayerOrTourChange()" required>
+                    <option value="">-- Choose Player --</option>
+                </select>
+            </div>
+
+            <!-- 2. Tournament Dropdown -->
+            <div class="dash-field-group">
+                <label><i class="fa-solid fa-trophy" style="color:#facc15;"></i> 2. SELECT TOURNAMENT</label>
+                <select id="dashTourSelect" class="dash-select" onchange="onPlayerOrTourChange()" required>
+                    <option value="">-- Choose Tournament --</option>
+                </select>
+            </div>
         </div>
 
-        <form id="manualTourStatsForm" onsubmit="saveManualTourStats(event)" class="modal-body">
-            <!-- 1. Select Player -->
-            <label class="form-label">SELECT PLAYER</label>
-            <select id="adminPlayerSelect" class="admin-input" required>
-                <option value="">Loading players...</option>
-            </select>
+        <!-- Optional: Tournament Rank -->
+        <div class="dash-field-group" style="margin-top:14px;">
+            <label><i class="fa-solid fa-medal" style="color:#fbbf24;"></i> TOURNAMENT RANK / BADGE (OPTIONAL)</label>
+            <input type="text" id="inRank" class="dash-input" placeholder="e.g. 1 or Rank 1 🥇">
+        </div>
 
-            <!-- 2. Select Tournament -->
-            <label class="form-label">SELECT TOURNAMENT</label>
-            <select id="adminTourSelect" class="admin-input" onchange="loadExistingPlayerTourStats()" required>
-                <option value="">Loading tournaments...</option>
-            </select>
-
-            <!-- 3. Tournament Rank (e.g. 1, 2, or Rank 1) -->
-            <label class="form-label">TOURNAMENT RANK (OPTIONAL)</label>
-            <input type="text" id="statRank" class="admin-input" placeholder="e.g. 1 or Rank 1 🥇">
-
-            <!-- 4. W / D / L Grid -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
-                <div>
-                    <label class="form-label" style="color:#10b981;">WINS</label>
-                    <input type="number" id="statWins" class="admin-input" value="0" min="0" oninput="autoCalculateMetrics()" required>
-                </div>
-                <div>
-                    <label class="form-label" style="color:#fbbf24;">DRAWS</label>
-                    <input type="number" id="statDraws" class="admin-input" value="0" min="0" oninput="autoCalculateMetrics()" required>
-                </div>
-                <div>
-                    <label class="form-label" style="color:#ef4444;">LOSSES</label>
-                    <input type="number" id="statLosses" class="admin-input" value="0" min="0" oninput="autoCalculateMetrics()" required>
-                </div>
+        <!-- Combat Record (Wins, Draws, Losses) -->
+        <div class="dash-record-grid">
+            <div class="dash-field-group">
+                <label style="color:#10b981;">WINS</label>
+                <input type="number" id="inWins" class="dash-input in-green" value="0" min="0" oninput="liveCalculate()" required>
             </div>
-
-            <!-- 5. Goals & Matches Played -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <div>
-                    <label class="form-label">MATCHES PLAYED</label>
-                    <input type="number" id="statPlayed" class="admin-input" value="0" min="0" readonly style="opacity:0.8;">
-                </div>
-                <div>
-                    <label class="form-label">GOALS SCORED</label>
-                    <input type="number" id="statGoals" class="admin-input" value="0" min="0" required>
-                </div>
+            <div class="dash-field-group">
+                <label style="color:#fbbf24;">DRAWS</label>
+                <input type="number" id="inDraws" class="dash-input in-gold" value="0" min="0" oninput="liveCalculate()" required>
             </div>
-
-            <!-- 6. Auto-Calculated Live Points & Efficiency -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; background:#060b13; padding:10px; border-radius:12px; border:1px solid #1e293b;">
-                <div>
-                    <label class="form-label" style="color:#fbbf24;">POINTS (W*3 + D*1)</label>
-                    <input type="number" id="statPoints" class="admin-input" value="0" style="color:#fbbf24; font-weight:800;" readonly>
-                </div>
-                <div>
-                    <label class="form-label" style="color:#00f3ff;">EFFICIENCY (PPM)</label>
-                    <input type="text" id="statPpm" class="admin-input" value="0.00" style="color:#00f3ff; font-weight:800;" readonly>
-                </div>
+            <div class="dash-field-group">
+                <label style="color:#ef4444;">LOSSES</label>
+                <input type="number" id="inLosses" class="dash-input in-red" value="0" min="0" oninput="liveCalculate()" required>
             </div>
+        </div>
 
-            <!-- Submit Button -->
-            <button type="submit" id="saveStatsBtn" class="btn-modal-action" style="margin-top:10px; background:linear-gradient(90deg, #f59e0b, #facc15); color:#000; font-weight:900;">
-                <i class="fa-solid fa-cloud-arrow-up"></i> SAVE TOURNAMENT STATS
-            </button>
-        </form>
-    </div>
+        <!-- Matches & Goals -->
+        <div class="dash-split-grid">
+            <div class="dash-field-group">
+                <label>MATCHES PLAYED (AUTO: W+D+L)</label>
+                <input type="number" id="inPlayed" class="dash-input" value="0" min="0" readonly style="opacity:0.8;">
+            </div>
+            <div class="dash-field-group">
+                <label>GOALS SCORED</label>
+                <input type="number" id="inGoals" class="dash-input" value="0" min="0" required>
+            </div>
+        </div>
+
+        <!-- Live Auto-Calculated Formula Display (Points & PPM) -->
+        <div class="dash-computed-box">
+            <div>
+                <span class="computed-tag">POINTS (W×3 + D×1)</span>
+                <input type="number" id="inPoints" class="computed-val-gold" value="0" readonly>
+            </div>
+            <div style="border-left:1px solid rgba(255,255,255,0.1); padding-left:14px;">
+                <span class="computed-tag">EFFICIENCY (POINTS ÷ MATCHES)</span>
+                <input type="text" id="inPpm" class="computed-val-cyan" value="0.00" readonly>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <button type="submit" id="btnSaveStats" class="btn-dash-save">
+            <i class="fa-solid fa-floppy-disk"></i> SAVE TOURNAMENT STATS TO DATABASE
+        </button>
+    </form>
 </div>
-      </div>
         </div>
             
 
@@ -3242,142 +3410,8 @@ async function updateGiveawayStatus(id, newStatus) {
         alert("❌ Failed to update status");
     }
 }
-        /* ================= DASHBOARD: MANUAL TOURNAMENT STATS ENGINE ================= */
-let dbPlayersCache = [];
-let dbToursCache = [];
-
-// 1. Open the modal & fetch latest players and tournaments
-async function openTourStatsModal(preSelectedPlayerId = null) {
-    document.getElementById('tourStatsModal').style.display = 'flex';
-
-    const playerDropdown = document.getElementById('adminPlayerSelect');
-    const tourDropdown = document.getElementById('adminTourSelect');
-
-    try {
-        const [playersRes, toursAuctionRes, toursSoloRes] = await Promise.all([
-            fetch(`${API}/api/players`),
-            fetch(`${API}/api/tournaments/list/auction`).catch(() => null),
-            fetch(`${API}/api/tournaments/list/solo`).catch(() => null)
-        ]);
-
-        dbPlayersCache = await playersRes.json();
-        
-        let allTours = [];
-        if (toursAuctionRes && toursAuctionRes.ok) allTours = allTours.concat(await toursAuctionRes.json());
-        if (toursSoloRes && toursSoloRes.ok) allTours = allTours.concat(await toursSoloRes.json());
-        dbToursCache = allTours;
-
-        // Populate Players
-        playerDropdown.innerHTML = '<option value="">-- Choose Player --</option>' +
-            dbPlayersCache.map(p => `<option value="${p._id}" ${preSelectedPlayerId === p._id ? 'selected' : ''}>${p.name}</option>`).join('');
-
-        // Populate Tournaments
-        tourDropdown.innerHTML = '<option value="">-- Choose Tournament --</option>' +
-            dbToursCache.map(t => `<option value="${t._id}">${t.name}</option>`).join('');
-
-    } catch (err) {
-        console.error("Error initializing stats modal:", err);
-    }
-}
-
-function closeTourStatsModal() {
-    document.getElementById('tourStatsModal').style.display = 'none';
-}
-
-// 2. Real-time auto-calculation of Played, Points (W:3, D:1, L:0), and Efficiency (Points / Played)
-function autoCalculateMetrics() {
-    const wins = Number(document.getElementById('statWins').value) || 0;
-    const draws = Number(document.getElementById('statDraws').value) || 0;
-    const losses = Number(document.getElementById('statLosses').value) || 0;
-
-    const played = wins + draws + losses;
-    const points = (wins * 3) + (draws * 1);
-    const efficiency = played > 0 ? (points / played).toFixed(2) : "0.00";
-
-    document.getElementById('statPlayed').value = played;
-    document.getElementById('statPoints').value = points;
-    document.getElementById('statPpm').value = efficiency;
-}
-
-// 3. Auto-load existing stats if previously saved for this player + tournament
-function loadExistingPlayerTourStats() {
-    const playerId = document.getElementById('adminPlayerSelect').value;
-    const tourId = document.getElementById('adminTourSelect').value;
-    if (!playerId || !tourId) return;
-
-    const player = dbPlayersCache.find(p => p._id === playerId);
-    if (!player || !player.tournamentStats) return;
-
-    const existing = player.tournamentStats.find(t => String(t.tourId) === String(tourId));
-    if (existing) {
-        document.getElementById('statWins').value = existing.wins || 0;
-        document.getElementById('statDraws').value = existing.draws || 0;
-        document.getElementById('statLosses').value = existing.losses || 0;
-        document.getElementById('statGoals').value = existing.goals || 0;
-        document.getElementById('statRank').value = existing.rank || '';
-        autoCalculateMetrics();
-    }
-}
-
-// 4. Save to Database
-async function saveManualTourStats(e) {
-    e.preventDefault();
-    const btn = document.getElementById('saveStatsBtn');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SAVING...';
-    btn.disabled = true;
-
-    const playerId = document.getElementById('adminPlayerSelect').value;
-    const tourId = document.getElementById('adminTourSelect').value;
-    const tourObj = dbToursCache.find(t => t._id === tourId);
-
-    const statsPayload = {
-        tourId: tourId,
-        tourName: tourObj ? tourObj.name : "Tournament",
-        rank: document.getElementById('statRank').value.trim(),
-        wins: Number(document.getElementById('statWins').value) || 0,
-        draws: Number(document.getElementById('statDraws').value) || 0,
-        losses: Number(document.getElementById('statLosses').value) || 0,
-        played: Number(document.getElementById('statPlayed').value) || 0,
-        goals: Number(document.getElementById('statGoals').value) || 0,
-        points: Number(document.getElementById('statPoints').value) || 0,
-        efficiency: document.getElementById('statPpm').value
-    };
-
-    try {
-        // Send to backend player profile update
-        const res = await fetch(`${API}/api/players/${playerId}/tournament-stats`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(statsPayload)
-        });
-
-        // Fallback: If your backend uses standard PUT /api/players/:id
-        if (!res.ok) {
-            const player = dbPlayersCache.find(p => p._id === playerId);
-            let existingList = player.tournamentStats || [];
-            // Remove old entry for this tour if it exists, then append new
-            existingList = existingList.filter(t => String(t.tourId) !== String(tourId));
-            existingList.push(statsPayload);
-
-            await fetch(`${API}/api/players/${playerId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ tournamentStats: existingList })
-            });
         }
 
-        alert("✅ TOURNAMENT STATS SAVED SUCCESSFULLY!");
-        closeTourStatsModal();
-    } catch (err) {
-        alert("Error saving stats: " + err.message);
-    } finally {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-    }
-}
-
-// Add to your loadAllDashboardData() in dashboard.html:
 
 
     // --- UNIFIED INITIALIZATION ---
