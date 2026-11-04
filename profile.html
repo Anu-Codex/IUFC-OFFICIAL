@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE RISING STARS | Clan Access Portal</title>
+    <title>IUFC OFFICIAL | Clan Access Portal</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -296,6 +296,296 @@
             gap: 6px;
             margin-top: 5px;
         }
+        :root {
+            --bg: #000000;                     /* Pure Deep Black */
+            --card-bg: #09090c;                /* Obsidian Black Card */
+            --input-bg: #040406;               /* Ultra Dark Input */
+            --border: #222228;                 /* Sleek Border */
+            --border-neon: rgba(251, 191, 36, 0.35); /* Glowing Gold Border */
+            --accent: #fbbf24;                 /* Radiant Gold */
+            --accent-bright: #ffd700;          /* Electric Yellow-Gold */
+            --gold: #f59e0b;                   /* Deep Amber Gold */
+            --danger: #ef4444;
+            --text-main: #ffffff;              /* Crisp White */
+            --text-dim: #a1a1aa;               /* Clean Gray Text */
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% -15%, rgba(251, 191, 36, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 100% 40%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 0% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 20px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--border-neon);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(251, 191, 36, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        .auth-header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .clan-badge-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 10px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.1));
+            border: 1.5px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.35);
+        }
+
+        .auth-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1.5px;
+            margin: 0;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .auth-header h2 span {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+        }
+
+        .auth-header p {
+            color: var(--text-dim);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin: 4px 0 0;
+        }
+
+        /* Mode Switcher Tabs */
+        .auth-tabs {
+            display: flex;
+            background: #040406;
+            padding: 4px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            margin-bottom: 22px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(90deg, #d4af37 0%, #ffd700 50%, #b8860b 100%);
+            color: #000000;
+            font-weight: 900;
+            box-shadow: 0 0 18px rgba(251, 191, 36, 0.45);
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
+        }
+
+        /* Buttons in Luxury Gold */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #d4af37 0%, #ffd700 50%, #b8860b 100%) !important;
+            color: #000000 !important;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Divider & Google Auth */
+        .divider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0 18px;
+            color: var(--text-dim);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .divider-row::before, .divider-row::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .btn-google {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-google:hover {
+            background: rgba(251, 191, 36, 0.08);
+            border-color: rgba(251, 191, 36, 0.35);
+        }
+
+        /* OTP Modal Overlay */
+        .otp-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .otp-card {
+            background: #09090c;
+            border: 1.5px solid var(--accent);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 380px;
+            padding: 28px 22px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(251, 191, 36, 0.25);
+        }
+
+        .otp-card i {
+            color: var(--accent) !important;
+        }
+
+        .otp-input {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem !important;
+            letter-spacing: 10px;
+            text-align: center;
+            color: var(--accent) !important;
+            font-weight: 900;
+            padding: 12px !important;
+            margin: 15px 0 18px !important;
+            background: #020204;
+            border: 1px solid var(--border-neon);
+            border-radius: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .otp-input:focus {
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+
+        .profile-warning-note {
+            color: var(--gold);
+            font-size: 0.65rem;
+            line-height: 1.4;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -305,7 +595,7 @@
         <div class="clan-badge-icon">
             <i class="fa-solid fa-bolt"></i>
         </div>
-        <h2>THE RISING <span>STARS</span></h2>
+        <h2>IUFC <span>OFFICIAL</span></h2>
         <p>Clan Identity & Roster Portal</p>
     </div>
 
@@ -393,20 +683,20 @@
 </div>
 
 <script>
-    const API = "https://trs-backend-qumj.onrender.com";
-    const API_V2 = "https://trs-backend-qumj.onrender.com";
+    const API = "https://iufc-backend.onrender.com";
+    const API_V2 = "https://iufc-backend.onrender.com";
 
     // --- 1. FIREBASE CONFIGURATION ---
     // Replace with your Firebase Console Project credentials:
     const firebaseConfig = {
-  apiKey: "AIzaSyBCRHvaZEG4H4Q_4kevR6hvUF0WDqzaGcE",
-  authDomain: "the-rising-stars-clan.firebaseapp.com",
-  projectId: "the-rising-stars-clan",
-  storageBucket: "the-rising-stars-clan.firebasestorage.app",
-  messagingSenderId: "135673950987",
-  appId: "1:135673950987:web:776d4db92435061eece80e",
-  measurementId: "G-EHPMSSQYQB"
-};
+    apiKey: "AIzaSyD_zpqmyvS9b92yIKeHT8Fj2h8HcOxTu3E",
+    authDomain: "iufc-clan.firebaseapp.com",
+    projectId: "iufc-clan",
+    storageBucket: "iufc-clan.firebasestorage.app",
+    messagingSenderId: "300870029893",
+    appId: "1:300870029893:web:ebcf7e80f5683259e3092c",
+    measurementId: "G-112JZM2DNT"
+  };
 
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
